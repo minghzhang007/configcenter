@@ -1,0 +1,60 @@
+spring:
+  datasource:
+    snail-master:
+      url: jdbc:mysql://10.164.97.50:6000/library-test?useUnicode=yes&characterEncoding=utf-8
+      username: lib-test
+      password: lib-test
+      driver-class-name: com.mysql.jdbc.Driver
+    snail-slave:
+      url: jdbc:mysql://10.164.97.50:6000/library-test?useUnicode=yes&characterEncoding=utf-8
+      username: lib-test
+      password: lib-test
+      driver-class-name: com.mysql.jdbc.Driver
+    yuedu-slave:
+      url: jdbc:mysql://10.165.124.116:6000/yuedu-test?useUnicode=yes&characterEncoding=utf-8
+      username: pris_test_18888
+      password: pris_test_18888
+      driver-class-name: com.mysql.jdbc.Driver
+  session:
+    store-type: none
+
+  redis:
+    host: 192.168.200.128
+    port: 6379
+    password: lewis
+
+  freemarker:
+    cache: false
+    charset: UTF-8
+    check-template-location: true
+    content-type: text/html
+    expose-request-attributes: true
+    expose-session-attributes: true
+    request-context-attribute: request
+
+server:
+  port: 8060
+
+security:
+  basic:
+    enabled: false
+
+mybatis:
+  typeAliasesPackage: com.lewis.springbootvue.biz.mybatis.entity
+  mapperLocations: classpath:mapper/*
+
+logging:
+  level:
+    org.springframework: warn
+    com.netease.snailreader.financebackend.biz.dao: debug
+  file: logs/spring-boot-log.log
+
+cache:
+  nkv:
+    master: 10.160.145.134:8200
+    slave: 10.160.145.134:8500
+    group: group_1
+    namespace: 13
+
+
+
