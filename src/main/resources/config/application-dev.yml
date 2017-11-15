@@ -15,6 +15,11 @@ spring:
       username: pris_test_18888
       password: pris_test_18888
       driver-class-name: com.mysql.jdbc.Driver
+    local:
+      url: jdbc:mysql://localhost:3306/configcenter?useUnicode=yes&characterEncoding=utf-8
+      username: root
+      password:
+      driver-class-name: com.mysql.jdbc.Driver
   session:
     store-type: none
 

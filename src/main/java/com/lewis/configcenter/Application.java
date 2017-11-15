@@ -1,18 +1,34 @@
 package com.lewis.configcenter;
 
 
+import com.alibaba.druid.pool.DruidDataSource;
+import com.github.pagehelper.PageHelper;
+import com.lewis.configcenter.common.config.datasource.DynamicDataSource;
+import com.lewis.configcenter.common.config.datasource.DynamicDataSourceTransactionManager;
+import com.lewis.configcenter.common.config.datasource.DynamicPlugin;
+import org.apache.ibatis.plugin.Interceptor;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.sql.DataSource;
+import java.util.Properties;
 
 @SpringBootApplication
 @EnableAutoConfiguration(exclude = {DataSourceAutoConfiguration.class})
 @ComponentScan
-//@MapperScan(value = "com.netease.snailreader.financebackend.biz.dao")
+@MapperScan(value = "com.lewis.configcenter.biz.dao")
 @EnableScheduling
 //@EnableConfigurationProperties({CacheConfig.class})
 public class Application {
@@ -21,7 +37,7 @@ public class Application {
         SpringApplication.run(Application.class, args);
     }
 
-   /* @Bean(value = "snailMaster")
+    @Bean(value = "snailMaster")
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource.snail-master")
     public DataSource snailMasterDataSource() {
@@ -41,24 +57,30 @@ public class Application {
         return new DruidDataSource();
     }
 
+    @Bean(value = "local")
+    @ConfigurationProperties(prefix = "spring.datasource.local")
+    public DataSource local() {
+        return new DruidDataSource();
+    }
+
     @Bean(value = "dynamicDataSource")
     public DataSource dynamicDataSource() {
-        return new DynamicDataSource(snailMasterDataSource(), snailSlaveDataSource(), yueduSlave());
-    }*/
+        return new DynamicDataSource(snailMasterDataSource(), snailSlaveDataSource(), yueduSlave(),local());
+    }
 
-   /* @Bean
+    @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dynamicDataSource());
-        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();*/
-    //sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mapper/**/*.xml"));
-     /*   Interceptor[] plugins = {pageHelper(), new DynamicPlugin()};
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mapper/**/*.xml"));
+        Interceptor[] plugins = {pageHelper(), new DynamicPlugin()};
         sqlSessionFactoryBean.setPlugins(plugins);
         return sqlSessionFactoryBean.getObject();
-    }*/
+    }
 
 
-    /*@Bean
+    @Bean
     public PageHelper pageHelper() {
         PageHelper pageHelper = new PageHelper();
         Properties properties = new Properties();
@@ -79,5 +101,4 @@ public class Application {
         transactionManager.setDataSource(dynamicDataSource());
         return transactionManager;
     }
-*/
 }
