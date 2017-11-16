@@ -11,7 +11,8 @@ public interface DepartmentService {
 
     boolean add(DepartmentDO departmentDO);
 
-    boolean update(DepartmentDO departmentDO);
 
     List<DepartmentDO> list();
+
+    boolean delete(Long id);
 }

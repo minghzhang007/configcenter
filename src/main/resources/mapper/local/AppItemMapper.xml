@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.AppItemMapper">
+
+    <select id="list" resultType="appItemDO">
+        select * from AppItem
+    </select>
+
+    <insert id="insert" parameterType="appItemDO">
+        INSERT INTO AppItem(AppId,AppName,EnvId,EnvName,Key,Value,Comment,Status,CreateTime,UpdateTime)
+        VALUES (#{appId},#{appName},#{envId},#{envName},#{key},#{value},#{comment},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="long">
+       DELETE from AppItem
+       WHERE Id = #{id}
+   </delete>
+
+    <update id="update" parameterType="appItemDO">
+        UPDATE AppItemDO
+        SET Value =#{value}
+        WHERE Id = #{id}
+    </update>
+
+</mapper>

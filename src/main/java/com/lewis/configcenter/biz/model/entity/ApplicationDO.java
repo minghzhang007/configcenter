@@ -2,25 +2,22 @@ package com.lewis.configcenter.biz.model.entity;
 
 
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
-* @author:zhangminghua
-* @version:1.0
-* @since:1.0
-* @createTime:2017-11-15 22:19:10
-*/
+ * @author:zhangminghua
+ * @version:1.0
+ * @since:1.0
+ * @createTime:2017-11-15 22:19:10
+ */
 @Data
 @NoArgsConstructor
-public class ApplicationDO implements java.io.Serializable{
+@EqualsAndHashCode(callSuper = true)
+public class ApplicationDO extends BaseEntity implements java.io.Serializable {
 
 
-    private static final long serialVersionUID = -4633044426378610008L;
-    /**
-     * 主键  db_column: id
-     */
-    private Integer id;
-
+    private static final long serialVersionUID = -4875482884061816223L;
     /**
      * 应用名称  db_column: app_name
      */
@@ -65,22 +62,5 @@ public class ApplicationDO implements java.io.Serializable{
      * 环境描述  db_column: env_desc
      */
     private String envDesc;
-
-    /**
-     * 状态 0：正常 -1：删除  db_column: status
-     */
-    private Integer status;
-
-    /**
-     * 创建时间  db_column: create_time
-     */
-    private Long createTime;
-
-    /**
-     * 修改时间  db_column: update_time
-     */
-    private Long updateTime;
-
-
 
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.DepartmentMapper">
+
+    <select id="list" resultType="departmentDO">
+        select * from Department
+    </select>
+
+
+    <insert id="insert" parameterType="departmentDO">
+        INSERT INTO Department(DepartName,DepartDesc,Status,CreateTime,UpdateTime)
+        VALUES (#{departName},#{departDesc},#{status},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM Department
+        WHERE Id = #{id}
+    </delete>
+
+</mapper>

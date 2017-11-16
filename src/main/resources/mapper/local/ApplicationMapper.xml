@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.ApplicationMapper">
+
+    <select id="list" resultType="applicationDO">
+        select * from Application
+    </select>
+
+    <insert id="insert" parameterType="applicationDO">
+        INSERT INTO Application(AppName,AppDesc,AppManager,DepartId,DepartName,DepartDesc,EnvId,EnvName,EnvDesc,
+        Status,CreateTime,UpdateTime)
+        VALUES (#{appName},#{appDesc}, ,#{appManager},#{departId},#{departName},#{departDesc},#{envId},#{envName},#{envDesc}
+        #{status},#{createTime},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="long">
+       DELETE from Application
+       WHERE Id = #{id}
+   </delete>
+
+</mapper>

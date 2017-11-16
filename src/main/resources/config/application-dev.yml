@@ -1,3 +1,8 @@
+project:
+  name: configcenter
+  code: cc
+  url:  http://tconfigcenter.163.com
+
 spring:
   datasource:
     snail-master:
@@ -18,7 +23,7 @@ spring:
     local:
       url: jdbc:mysql://localhost:3306/configcenter?useUnicode=yes&characterEncoding=utf-8
       username: root
-      password:
+      password: root
       driver-class-name: com.mysql.jdbc.Driver
   session:
     store-type: none
@@ -38,14 +43,14 @@ spring:
     request-context-attribute: request
 
 server:
-  port: 8060
+  port: 8070
 
 security:
   basic:
     enabled: false
 
 mybatis:
-  typeAliasesPackage: com.lewis.springbootvue.biz.mybatis.entity
+  typeAliasesPackage: com.lewis.configcenter.biz.model.entity
   mapperLocations: classpath:mapper/*
 
 logging:

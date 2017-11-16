@@ -1,7 +1,9 @@
 package com.lewis.configcenter.biz.model.entity;
 
 
+import com.sun.xml.internal.rngom.parse.host.Base;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 /**
@@ -12,14 +14,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class DepartmentDO implements java.io.Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class DepartmentDO extends Base implements java.io.Serializable {
 
-    private static final long serialVersionUID = -5758278565167569769L;
-    /**
-     * 主键ID  db_column: id
-     */
-    private Integer id;
 
+    private static final long serialVersionUID = 4416870378612066737L;
     /**
      * 部门名称  db_column: depart_name
      */
@@ -29,21 +28,5 @@ public class DepartmentDO implements java.io.Serializable {
      * 部门描述  db_column: depart_desc
      */
     private String departDesc;
-
-    /**
-     * 状态 0：正常 -1删除:  db_column: status
-     */
-    private Integer status;
-
-    /**
-     * 创建时间  db_column: create_time
-     */
-    private Long createTime;
-
-    /**
-     * 修改时间  db_column: update_time
-     */
-    private Long updateTime;
-
 
 }

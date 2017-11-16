@@ -43,8 +43,71 @@ Vue.filter("toPayMethodEnum", function (value) {
             return '华为支付';
         } else if (value === 'apple.iap.sandbox') {
             return '苹果IAP沙盒';
+        } else if (value === 'apple.iap.deduction') {
+            return '苹果IAP分成扣除';
+        } else if (value === 'huawei.iap.deduction') {
+            return '华为分成扣除';
+        } else if (value === 'accumulateIncome') {
+            return '单月累计收入';
+        } else if (value === 'accumulateSettleIncome') {
+            return '单月结算收入';
         } else {
-            return '';
+            return '未知选项';
         }
     }
 );
+
+Vue.filter('toBookStatusEnum', function (value) {
+    if (value === 0) {
+        return "有效";
+    } else if (value === 1) {
+        return "测试";
+    } else if (value === 2) {
+        return "不可再订";
+    } else if (value === -1) {
+        return "过期";
+    }
+});
+Vue.filter('toFixed', function (value) {
+    if (value === undefined) {
+        return value;
+    }
+    var number = parseFloat(value.toFixed(2));
+    return number;
+});
+
+//将金额由分转为元，并保留两位小数
+Vue.filter('toYuan', function (value) {
+    value = value / 100;
+    return parseFloat(value.toFixed(2));
+});
+
+//将小数转为其对应的百分比
+Vue.filter('toPercentage', function (value) {
+    value = parseFloat((value * 100).toFixed(2));
+    return value + "%";
+});
+
+Vue.filter('toStatusEnum', function (value) {
+    if (value === 0) {
+        return '有效';
+    } else {
+        return '无效';
+    }
+});
+
+Vue.filter('toZero', function (value) {
+    if (value === null || value === undefined) {
+        return 0;
+    } else {
+        return value;
+    }
+});
+
+Vue.filter('toDefault', function (value) {
+    if (value === null || value === undefined) {
+        return '暂无';
+    } else {
+        return value;
+    }
+});

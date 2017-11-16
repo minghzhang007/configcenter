@@ -3,18 +3,23 @@ package com.lewis.configcenter;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.github.pagehelper.PageHelper;
-import com.lewis.configcenter.common.config.datasource.DynamicDataSource;
-import com.lewis.configcenter.common.config.datasource.DynamicDataSourceTransactionManager;
-import com.lewis.configcenter.common.config.datasource.DynamicPlugin;
+import com.lewis.configcenter.common.component.datasource.DynamicDataSource;
+import com.lewis.configcenter.common.component.datasource.DynamicDataSourceTransactionManager;
+import com.lewis.configcenter.common.component.datasource.DynamicPlugin;
+import com.lewis.configcenter.common.config.CacheConfig;
+import com.lewis.configcenter.common.config.ProjectConfig;
+import org.apache.ibatis.io.VFS;
 import org.apache.ibatis.plugin.Interceptor;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.mybatis.spring.boot.autoconfigure.SpringBootVFS;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Primary;
@@ -30,7 +35,7 @@ import java.util.Properties;
 @ComponentScan
 @MapperScan(value = "com.lewis.configcenter.biz.dao")
 @EnableScheduling
-//@EnableConfigurationProperties({CacheConfig.class})
+@EnableConfigurationProperties({CacheConfig.class, ProjectConfig.class})
 public class Application {
 
     public static void main(String[] args) {
@@ -70,12 +75,15 @@ public class Application {
 
     @Bean
     public SqlSessionFactory sqlSessionFactory() throws Exception {
+        //DefaultVFS在获取jar上存在问题，使用springboot只能修改
+        VFS.addImplClass(SpringBootVFS.class);
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
         sqlSessionFactoryBean.setDataSource(dynamicDataSource());
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(resolver.getResources("classpath:/mapper/**/*.xml"));
         Interceptor[] plugins = {pageHelper(), new DynamicPlugin()};
         sqlSessionFactoryBean.setPlugins(plugins);
+        sqlSessionFactoryBean.setTypeAliasesPackage("com.lewis.configcenter.biz.model.entity");
         return sqlSessionFactoryBean.getObject();
     }
 

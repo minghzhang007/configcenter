@@ -16,4 +16,6 @@ public interface ApplicationMapper {
     int insert(ApplicationDO applicationDO);
 
     int update(ApplicationDO applicationDO);
+
+    int delete(Long id);
 }

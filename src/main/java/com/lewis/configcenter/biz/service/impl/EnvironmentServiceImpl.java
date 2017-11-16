@@ -1,35 +1,39 @@
 package com.lewis.configcenter.biz.service.impl;
 
-import com.lewis.configcenter.biz.dao.local.EnviromentMapper;
+import com.lewis.configcenter.biz.dao.local.EnvironmentMapper;
 import com.lewis.configcenter.biz.model.entity.EnvironmentDO;
-import com.lewis.configcenter.biz.service.EnviromentService;
+import com.lewis.configcenter.biz.service.EnvironmentService;
+import com.lewis.configcenter.common.component.page.PageList;
+import com.lewis.configcenter.common.component.page.PageTemplate;
+import com.lewis.configcenter.common.component.page.Paginator;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * Created by Administrator on 2017/11/15.
  */
 @Service
-public class EnvironmentServiceImpl implements EnviromentService {
+public class EnvironmentServiceImpl implements EnvironmentService {
 
     @Resource
-    private EnviromentMapper enviromentMapper;
+    private EnvironmentMapper environmentMapper;
 
     @Override
     public boolean add(EnvironmentDO environmentDO) {
-        return enviromentMapper.insert(environmentDO) == 1;
+        return environmentMapper.insert(environmentDO) == 1;
     }
 
     @Override
-    public boolean update(EnvironmentDO environmentDO) {
-        return enviromentMapper.update(environmentDO) == 1;
+    public boolean delete(Long id) {
+        return environmentMapper.delete(id) == 1;
     }
 
     @Override
-    public List<EnvironmentDO> list() {
-
-        return enviromentMapper.list();
+    public PageList<EnvironmentDO> pageList(Paginator paginator) {
+        PageTemplate<EnvironmentDO> pageTemplate = () -> environmentMapper.list();
+        return pageTemplate.getItemsByPage(paginator);
     }
+
+
 }

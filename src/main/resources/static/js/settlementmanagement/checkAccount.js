@@ -3,7 +3,7 @@ var VM;
 VM = new Vue({
     el: "#app",
     data: {
-        pageSize: 10,
+        pageSize: 100,
         // 搜索表单
         queryForm: {},
         // 结果对象
@@ -25,7 +25,7 @@ VM = new Vue({
     methods: {
         query: function () {
             var _this = this;
-            var url = window.location.protocol + "//" + window.location.host + $("#contextPath").text();
+            var url = window.location.protocol + "//" + window.location.host ;
 
             var formData = {
                 "year": $("#year").val()
@@ -43,7 +43,7 @@ VM = new Vue({
         },
 
         exportToExcel: function () {
-            var url = window.location.protocol + "//" + window.location.host + $("#contextPath").text();
+            var url = window.location.protocol + "//" + window.location.host ;
             var formData = {
                 "year": $("#year").val()
             };

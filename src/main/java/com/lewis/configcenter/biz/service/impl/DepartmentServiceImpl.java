@@ -23,8 +23,8 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public boolean update(DepartmentDO departmentDO) {
-        return departmentMapper.update(departmentDO) == 0;
+    public boolean delete(Long id) {
+        return departmentMapper.delete(id) == 0;
     }
 
     @Override
