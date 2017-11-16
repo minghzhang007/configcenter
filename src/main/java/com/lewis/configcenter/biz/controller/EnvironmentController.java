@@ -50,5 +50,12 @@ public class EnvironmentController {
         return new ResultMsg(result, MsgConstant.getAddMsg(result));
     }
 
+    @GetMapping("/update")
+    @ResponseJson
+    public ResultMsg update(@Json EnvironmentDO environmentDO) {
+        boolean result = environmentService.update(environmentDO);
+        return new ResultMsg(result, MsgConstant.getUpdateMsg(result));
+    }
+
 
 }

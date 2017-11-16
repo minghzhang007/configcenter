@@ -32,6 +32,11 @@ public class EnvironmentServiceImpl implements EnvironmentService {
     }
 
     @Override
+    public boolean update(EnvironmentDO environmentDO) {
+        return environmentMapper.update(environmentDO) == 1;
+    }
+
+    @Override
     public PageList<EnvironmentDO> pageList(Paginator paginator) {
         PageTemplate<EnvironmentDO> pageTemplate = () -> environmentMapper.list();
         return pageTemplate.getItemsByPage(paginator);

@@ -12,6 +12,14 @@
         VALUES (#{envName},#{envDesc},#{status},#{createTime},#{updateTime})
     </insert>
 
+    <update id="update" parameterType="environmentDO">
+        UPDATE environment
+        SET EnvName =#{envName},
+           EnvDesc = #{envDesc},
+           Status = #{status}
+        WHERE Id = #{id}
+    </update>
+
     <delete id="delete" parameterType="long">
         DELETE FROM environment
         WHERE Id = #{id}

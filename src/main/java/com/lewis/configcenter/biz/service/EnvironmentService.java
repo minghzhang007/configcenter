@@ -13,5 +13,7 @@ public interface EnvironmentService {
 
     boolean delete(Long id);
 
+    boolean update(EnvironmentDO environmentDO);
+
     PageList<EnvironmentDO> pageList(Paginator paginator);
 }

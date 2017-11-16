@@ -13,6 +13,8 @@ public interface EnvironmentMapper {
 
     int insert(EnvironmentDO environmentDO);
 
+    int update(EnvironmentDO environmentDO);
+
     int delete(Long id);
 
 }

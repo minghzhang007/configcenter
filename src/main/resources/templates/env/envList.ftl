@@ -55,7 +55,7 @@
             <td>{{env.envDesc}}</td>
             <td>{{env.status | toStatusEnum}}</td>
             <td>
-                <button type="button" class="btn btn-default" @click="update(user)">修改</button>
+                <button type="button" class="btn btn-default" @click="update(env)">修改</button>
             </td>
         </tr>
         </tbody>
