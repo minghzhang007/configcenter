@@ -17,4 +17,12 @@
         WHERE Id = #{id}
     </delete>
 
+    <update id="update" parameterType="departmentDO">
+        UPDATE Department
+        SET DepartName =#{departName},
+        DepartDesc = #{departDesc},
+        Status = #{status}
+        WHERE Id = #{id}
+    </update>
+
 </mapper>

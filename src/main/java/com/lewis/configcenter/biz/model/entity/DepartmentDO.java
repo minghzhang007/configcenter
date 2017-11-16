@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class DepartmentDO extends Base implements java.io.Serializable {
+public class DepartmentDO extends BaseEntity implements java.io.Serializable {
 
 
     private static final long serialVersionUID = 4416870378612066737L;

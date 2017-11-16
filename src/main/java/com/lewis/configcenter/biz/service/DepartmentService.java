@@ -1,6 +1,8 @@
 package com.lewis.configcenter.biz.service;
 
 import com.lewis.configcenter.biz.model.entity.DepartmentDO;
+import com.lewis.configcenter.common.component.page.PageList;
+import com.lewis.configcenter.common.component.page.Paginator;
 
 import java.util.List;
 
@@ -9,10 +11,11 @@ import java.util.List;
  */
 public interface DepartmentService {
 
+    PageList<DepartmentDO> pageList(Paginator paginator);
+
+    boolean update(DepartmentDO departmentDO);
+
     boolean add(DepartmentDO departmentDO);
-
-
-    List<DepartmentDO> list();
 
     boolean delete(Long id);
 }

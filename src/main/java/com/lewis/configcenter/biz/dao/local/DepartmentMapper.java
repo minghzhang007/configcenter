@@ -14,4 +14,6 @@ public interface DepartmentMapper {
     int insert(DepartmentDO departmentDO);
 
     int delete(Long id);
+
+    int update(DepartmentDO departmentDO);
 }
