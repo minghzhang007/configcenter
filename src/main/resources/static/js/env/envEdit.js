@@ -14,7 +14,7 @@ $(document).ready(function () {
             submitData: function () {
                 this.queryForm.roleList = this.roles;
                 var id = this.queryForm.id;
-                var url = window.location.protocol + "//" + window.location.host ;
+                var url = window.location.protocol + "//" + window.location.host;
                 var data = JSON.stringify(this.queryForm);
                 if (id == null) {
                     url += '/env/add?' + data;
@@ -22,7 +22,7 @@ $(document).ready(function () {
                     url += '/env/update?' + data;
                 }
                 $("#modalForm").data('bootstrapValidator').validate();
-                if($("#modalForm").data('bootstrapValidator').isValid()){
+                if ($("#modalForm").data('bootstrapValidator').isValid()) {
                     $.ajax({
                         url: url,
                         type: "GET",

@@ -1,6 +1,7 @@
 package com.lewis.configcenter.biz.service.impl;
 
 import com.lewis.configcenter.biz.dao.local.EnvironmentMapper;
+import com.lewis.configcenter.biz.model.entity.BaseEntityHelper;
 import com.lewis.configcenter.biz.model.entity.EnvironmentDO;
 import com.lewis.configcenter.biz.service.EnvironmentService;
 import com.lewis.configcenter.common.component.page.PageList;
@@ -21,6 +22,7 @@ public class EnvironmentServiceImpl implements EnvironmentService {
 
     @Override
     public boolean add(EnvironmentDO environmentDO) {
+        BaseEntityHelper.setDefaultValue(environmentDO);
         return environmentMapper.insert(environmentDO) == 1;
     }
 
