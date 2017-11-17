@@ -10,10 +10,12 @@
             <a href="/index"><i class="fa fa-fw fa-home"></i>首页</a>
         </li>
         <li class="dropdown <#if activeKey == 'trade'>open</#if>">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw"></i>交易管理
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-fw"></i>环境部门配置
                 <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="/trade/toQuery">购买记录</a></li>
+                <li><a href="/env/toQuery">环境配置</a></li>
+                <li><a href="/depart/toQuery">部门配置</a></li>
+                <li><a href="/app/toQuery">应用配置</a></li>
             </ul>
         </li>
         <li class="dropdown <#if activeKey == 'settle'>open</#if>">

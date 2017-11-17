@@ -2,6 +2,7 @@ package com.lewis.configcenter.biz.service;
 
 import com.lewis.configcenter.biz.model.entity.ApplicationDO;
 import com.lewis.configcenter.biz.model.queryobject.ApplicationQO;
+import com.lewis.configcenter.common.component.page.PageList;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ public interface ApplicationService {
 
     ApplicationDO queryOne(ApplicationQO qo);
 
-    List<ApplicationDO> list(ApplicationQO qo);
+    PageList<ApplicationDO> pageList(ApplicationQO qo);
 }

@@ -4,6 +4,8 @@ import com.lewis.configcenter.biz.dao.local.ApplicationMapper;
 import com.lewis.configcenter.biz.model.entity.ApplicationDO;
 import com.lewis.configcenter.biz.model.queryobject.ApplicationQO;
 import com.lewis.configcenter.biz.service.ApplicationService;
+import com.lewis.configcenter.common.component.page.PageList;
+import com.lewis.configcenter.common.component.page.PageTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -34,7 +36,8 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     @Override
-    public List<ApplicationDO> list(ApplicationQO qo) {
-        return applicationMapper.list(qo);
+    public PageList<ApplicationDO> pageList(ApplicationQO qo) {
+        PageTemplate<ApplicationDO> pageTemplate = () -> applicationMapper.list(qo);
+        return pageTemplate.getItemsByPage(qo);
     }
 }
