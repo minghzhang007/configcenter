@@ -1,6 +1,7 @@
 package com.lewis.configcenter.biz.service.impl;
 
 import com.lewis.configcenter.biz.dao.local.AppItemMapper;
+import com.lewis.configcenter.biz.model.constants.PublishStatusEnum;
 import com.lewis.configcenter.biz.model.entity.AppItemDO;
 import com.lewis.configcenter.biz.model.queryobject.AppItemQO;
 import com.lewis.configcenter.biz.service.AppItemService;
@@ -38,7 +39,8 @@ public class AppItemServiceImpl implements AppItemService {
 
     @Override
     public boolean publish(AppItemQO appItemQO) {
-
+        appItemQO.setPublishStatus(PublishStatusEnum.PUBLISH_NO.getCode());
+        List<AppItemDO> list = appItemMapper.list(appItemQO);
         return false;
     }
 }

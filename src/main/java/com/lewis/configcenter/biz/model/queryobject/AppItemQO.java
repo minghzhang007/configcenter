@@ -16,4 +16,6 @@ public class AppItemQO extends Paginator {
     private String dictKey;
 
     private String envName;
+
+    private Integer publishStatus;
 }

@@ -2,8 +2,22 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lewis.configcenter.biz.dao.local.AppItemMapper">
 
-    <select id="list" resultType="appItemDO">
+    <select id="list" resultType="appItemDO" parameterType="com.lewis.configcenter.biz.model.queryobject.AppItemQO">
         select * from AppItem
+        <where>
+            <if test="appName != null">
+                AppName = #{appName}
+            </if>
+            <if test="envName != null">
+                AND EnvName = #{envName}
+            </if>
+            <if test="dictKey != null">
+                AND DictKey like concat('%',#{dictKey},'%')
+            </if>
+            <if test="publishStatus != null">
+                AND PublishStatus = #{publishStatus}
+            </if>
+        </where>
     </select>
 
     <insert id="insert" parameterType="appItemDO">
