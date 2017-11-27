@@ -7,10 +7,8 @@
     </select>
 
     <insert id="insert" parameterType="applicationDO">
-        INSERT INTO Application(AppName,AppDesc,AppManager,DepartId,DepartName,DepartDesc,EnvId,EnvName,EnvDesc,
-        Status,CreateTime,UpdateTime)
-        VALUES (#{appName},#{appDesc}, ,#{appManager},#{departId},#{departName},#{departDesc},#{envId},#{envName},#{envDesc}
-        #{status},#{createTime},#{updateTime})
+        INSERT INTO Application(AppName,AppDesc,AppManager,DepartName,DepartDesc,Status,CreateTime,UpdateTime)
+        VALUES (#{appName},#{appDesc},#{appManager},#{departName},#{departDesc},#{status},#{createTime},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">

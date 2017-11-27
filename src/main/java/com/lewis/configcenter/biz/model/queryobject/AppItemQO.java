@@ -1,5 +1,6 @@
 package com.lewis.configcenter.biz.model.queryobject;
 
+import com.lewis.configcenter.common.component.page.Paginator;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -8,9 +9,11 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class AppItemQO {
+public class AppItemQO extends Paginator {
 
     private String appName;
 
-    private String key;
+    private String dictKey;
+
+    private String envName;
 }

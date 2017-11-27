@@ -41,21 +41,23 @@
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
-            <th>部门ID</th>
-            <th>部门名称</th>
-            <th>部门描述</th>
+            <th>应用ID</th>
+            <th>应用名称</th>
+            <th>应用描述</th>
+            <th>所属部门</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
         </thead>
         <tbody>
-        <tr v-for="depart in result.data" align="center">
-            <td>{{depart.id}}</td>
-            <td>{{depart.departName}}</td>
-            <td>{{depart.departDesc}}</td>
-            <td>{{depart.status | toStatusEnum}}</td>
+        <tr v-for="app in result.data" align="center">
+            <td>{{app.id}}</td>
+            <td>{{app.appName}}</td>
+            <td><a style="color:blue;cursor: pointer" @click="detail(app)">{{app.appDesc}}</a> </td>
+            <td>{{app.departDesc}}</td>
+            <td>{{app.status | toStatusEnum}}</td>
             <td>
-                <button type="button" class="btn btn-default" @click="update(depart)">修改</button>
+                <button type="button" class="btn btn-default" @click="update(app)">修改</button>
             </td>
         </tr>
         </tbody>

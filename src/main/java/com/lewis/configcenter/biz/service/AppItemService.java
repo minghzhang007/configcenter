@@ -2,6 +2,7 @@ package com.lewis.configcenter.biz.service;
 
 import com.lewis.configcenter.biz.model.entity.AppItemDO;
 import com.lewis.configcenter.biz.model.queryobject.AppItemQO;
+import com.lewis.configcenter.common.component.page.PageList;
 
 import java.util.List;
 
@@ -14,5 +15,7 @@ public interface AppItemService {
 
     boolean update(AppItemDO appItemDO);
 
-    List<AppItemDO> list(AppItemQO appItemQO);
+    PageList<AppItemDO> pageList(AppItemQO appItemQO);
+
+    boolean publish(AppItemQO appItemQO);
 }

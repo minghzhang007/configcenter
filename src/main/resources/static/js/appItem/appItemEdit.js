@@ -8,20 +8,26 @@ $(document).ready(function () {
         data: {
             //表单数据
             queryForm: formData,
-            departs: departs
+            envs: envs,
+            apps: apps
         },
 
         methods: {
             submitData: function () {
-                this.queryForm.departs = this.departs;
+                this.queryForm.envs = this.envs;
+                this.queryForm.apps = this.apps;
+                var app = JSON.parse($("#appString").text());
+                var appInfo = {
+                    "appName": app.appName,
+                    "appDesc": app.appDesc
+                };
                 var id = this.queryForm.id;
                 var url = window.location.protocol + "//" + window.location.host;
-                var data = JSON.stringify(this.queryForm);
-                console.log("departs："+departs);
+                var data = JSON.stringify($.extend(this.queryForm,appInfo));
                 if (id == null) {
-                    url += '/app/add?' + data;
+                    url += '/appItem/add?' + data;
                 } else {
-                    url += '/app/update?' + data;
+                    url += '/appItem/update?' + data;
                 }
                 $("#modalForm").data('bootstrapValidator').validate();
                 if ($("#modalForm").data('bootstrapValidator').isValid()) {

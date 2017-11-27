@@ -16,6 +16,7 @@
                 <li><a href="/env/toQuery">环境配置</a></li>
                 <li><a href="/depart/toQuery">部门配置</a></li>
                 <li><a href="/app/toQuery">应用配置</a></li>
+                <li><a href="/appItem/toQuery">KV配置</a></li>
             </ul>
         </li>
         <li class="dropdown <#if activeKey == 'settle'>open</#if>">

@@ -9,21 +9,30 @@
     <div class="modal-body">
         <div class="row">
             <div class="form-group">
-                <label for="addAppName" class="col-md-2 control-label">应用名称</label>
+                <label for="addKey" class="col-md-2 control-label">键</label>
                 <div class="col-md-4">
-                    <input type="text" id="addAppName" name="addAppName" v-model="queryForm.appName"
-                           placeholder="请输入应用名称"
+                    <input type="text" id="addKey" name="addKey" v-model="queryForm.dictKey"
+                           placeholder="请输入键"
                            class="form-control">
                 </div>
             </div>
         </div>
         <div class="row">
             <div class="form-group">
-                <label for="addAppDesc" class="col-md-2 control-label">应用描述</label>
+                <label for="addValue" class="col-md-2 control-label">值</label>
                 <div class="col-md-4">
-                    <input type="text" id="addAppDesc" name="addAppDesc" v-model="queryForm.appDesc"
-                           placeholder="请输入应用描述"
+                    <input type="text" id="addValue" name="addValue" v-model="queryForm.value"
+                           placeholder="请输入值"
                            class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
+                <label for="addComment" class="col-md-2 control-label">注释</label>
+                <div class="col-md-4">
+                    <input type="text" id="addComment" name="addComment" v-model="queryForm.comment"
+                           placeholder="请输入该配置项的注释" class="form-control">
                 </div>
             </div>
         </div>
@@ -38,25 +47,15 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="appManager" class="col-md-2 control-label">应用负责人</label>
-                <div class="col-md-4">
-                    <input type="text" id="appManager" name="appManager" v-model="queryForm.appManager"
-                           placeholder="请输入应用负责人"
-                           class="form-control">
-                </div>
-            </div>
-        </div>
         <div>
             <fieldset>
-                <legend>部门：</legend>
+                <legend>环境：</legend>
             </fieldset>
             <table class="table table-bordered table-hover table-striped">
                 <tbody>
-                <tr v-for="item in departs">
+                <tr v-for="item in envs">
                     <td>
-                        <input type="radio" v-bind:name="item" :value="item.key" class="col-md-1"
+                        <input type="radio" name="env" :value="item.key" class="col-md-1"
                                v-model="item.selected"/>
                         <label class="col-md-offset-1">{{ item.value }}</label>
                     </td>
@@ -71,7 +70,8 @@
     </div>
 </form>
 <script type="text/javascript">
-    var formData =${app};
-    var departs =${departs};
+    var formData =${appItem};
+    var apps =${apps};
+    var envs =${envs};
 </script>
-<script type="text/javascript" src="${request.contextPath}/js/app/appEdit.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/appItem/appItemEdit.js"></script>

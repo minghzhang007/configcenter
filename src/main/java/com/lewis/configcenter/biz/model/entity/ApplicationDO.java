@@ -34,11 +34,6 @@ public class ApplicationDO extends BaseEntity implements java.io.Serializable {
     private String appManager;
 
     /**
-     * 部门ID  db_column: depart_id
-     */
-    private Integer departId;
-
-    /**
      * 部门名称  db_column: depart_name
      */
     private String departName;
@@ -47,20 +42,5 @@ public class ApplicationDO extends BaseEntity implements java.io.Serializable {
      * 部门描述  db_column: depart_desc
      */
     private String departDesc;
-
-    /**
-     * 环境ID  db_column: env_id
-     */
-    private Integer envId;
-
-    /**
-     * 环境名称  db_column: env_name
-     */
-    private String envName;
-
-    /**
-     * 环境描述  db_column: env_desc
-     */
-    private String envDesc;
 
 }

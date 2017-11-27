@@ -111,3 +111,13 @@ Vue.filter('toDefault', function (value) {
         return value;
     }
 });
+
+Vue.filter('toPublishStatus', function (value) {
+    if (value === 0) {
+        return '已发布';
+    }
+    if (value === 1) {
+        return '未发布';
+    }
+    return '发布状态异常';
+});

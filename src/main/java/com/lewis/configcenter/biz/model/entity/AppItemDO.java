@@ -18,20 +18,22 @@ public class AppItemDO extends BaseEntity implements java.io.Serializable {
 
 
     private static final long serialVersionUID = -3692172690353486545L;
-    /**
-     * 应用ID  db_column: app_id
-     */
-    private Integer appId;
 
     /**
      * 应用名称  db_column: app_name
      */
     private String appName;
 
+    private String appDesc;
+
+    private String envName;
+
+    private String envDesc;
+
     /**
      * 配置项的key  db_column: key
      */
-    private String key;
+    private String dictKey;
 
     /**
      * 配置项的value  db_column: value
@@ -42,6 +44,8 @@ public class AppItemDO extends BaseEntity implements java.io.Serializable {
      * 配置项的评论  db_column: comment
      */
     private String comment;
+
+    private Integer publishStatus;
 
 
 }

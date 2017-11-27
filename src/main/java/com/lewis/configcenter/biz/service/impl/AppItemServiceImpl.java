@@ -4,6 +4,8 @@ import com.lewis.configcenter.biz.dao.local.AppItemMapper;
 import com.lewis.configcenter.biz.model.entity.AppItemDO;
 import com.lewis.configcenter.biz.model.queryobject.AppItemQO;
 import com.lewis.configcenter.biz.service.AppItemService;
+import com.lewis.configcenter.common.component.page.PageList;
+import com.lewis.configcenter.common.component.page.PageTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -29,7 +31,14 @@ public class AppItemServiceImpl implements AppItemService {
     }
 
     @Override
-    public List<AppItemDO> list(AppItemQO appItemQO) {
-        return appItemMapper.list(appItemQO);
+    public PageList<AppItemDO> pageList(AppItemQO appItemQO) {
+        PageTemplate<AppItemDO> pageTemplate = () -> appItemMapper.list(appItemQO);
+        return pageTemplate.getItemsByPage(appItemQO);
+    }
+
+    @Override
+    public boolean publish(AppItemQO appItemQO) {
+
+        return false;
     }
 }

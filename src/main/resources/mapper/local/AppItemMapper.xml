@@ -7,8 +7,8 @@
     </select>
 
     <insert id="insert" parameterType="appItemDO">
-        INSERT INTO AppItem(AppId,AppName,EnvId,EnvName,Key,Value,Comment,Status,CreateTime,UpdateTime)
-        VALUES (#{appId},#{appName},#{envId},#{envName},#{key},#{value},#{comment},#{status},#{createTime},#{updateTime})
+        INSERT INTO AppItem(AppName,AppDesc,EnvName,EnvDesc,DictKey,Value,Comment,PublishStatus,Status,CreateTime,UpdateTime)
+        VALUES (#{appName},#{appDesc},#{envName},#{envDesc},#{dictKey},#{value},#{comment},#{publishStatus},#{status},#{createTime},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">
@@ -17,8 +17,8 @@
    </delete>
 
     <update id="update" parameterType="appItemDO">
-        UPDATE AppItemDO
-        SET Value =#{value}
+        UPDATE AppItem
+        SET Value =#{value},Comment = #{comment}
         WHERE Id = #{id}
     </update>
 

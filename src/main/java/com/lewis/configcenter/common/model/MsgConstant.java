@@ -16,6 +16,9 @@ public class MsgConstant {
     private static final String MSG_DELETE_SUCCESS = "删除数据成功";
     private static final String MSG_DELETE_FAILURE = "删除数据失败";
 
+    private static final String MSG_PUBLISH_SUCCESS = "发布数据成功";
+    private static final String MSG_PUBLISH_FAILURE = "发布数据失败";
+
     public static String getAddMsg(boolean success) {
         if (success) {
             return MSG_ADD_SUCCESS;
@@ -35,5 +38,12 @@ public class MsgConstant {
             return MSG_DELETE_SUCCESS;
         }
         return MSG_DELETE_FAILURE;
+    }
+
+    public static String getPublishMsg(boolean success) {
+        if (success) {
+            return MSG_PUBLISH_SUCCESS;
+        }
+        return MSG_PUBLISH_FAILURE;
     }
 }
