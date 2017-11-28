@@ -33,9 +33,6 @@ public class AppItemServiceImpl implements AppItemService {
     @Resource
     private ZkComponent zkComponent;
 
-    @Resource
-    private Constants constants;
-
     @Override
     public boolean add(AppItemDO appItemDO) {
         boolean result;
@@ -55,7 +52,7 @@ public class AppItemServiceImpl implements AppItemService {
 
     private String getPath(AppItemDO appItemDO) {
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append("/").append(constants.getROOT_NODE())
+        stringBuilder.append("/").append(Constants.ROOT_NODE)
                 .append("/").append(appItemDO.getAppName())
                 .append("/").append(appItemDO.getEnvName())
                 .append("/").append(appItemDO.getDictKey());

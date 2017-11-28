@@ -13,5 +13,5 @@ public class Constants {
     /**
      * ZK顶节点
      */
-    private String ROOT_NODE = "configcenter";
+    public static String ROOT_NODE = "configcenter";
 }
