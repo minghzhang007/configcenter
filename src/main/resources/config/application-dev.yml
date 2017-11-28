@@ -55,6 +55,7 @@ mybatis:
 
 logging:
   level:
+    root: info
     org.springframework: warn
     com.netease.snailreader.financebackend.biz.dao: debug
   file: logs/spring-boot-log.log

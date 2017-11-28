@@ -17,9 +17,9 @@ public class DynamicDataSourceTransactionManager extends DataSourceTransactionMa
         //设置数据源
         boolean readOnly = definition.isReadOnly();
         if (readOnly) {
-            DynamicDataSourceHolder.putDataSource(DynamicDataSourceGlobal.SNAIL_READ);
+            DynamicDataSourceHolder.putDataSource(DynamicDataSourceGlobal.LOCAL);
         } else {
-            DynamicDataSourceHolder.putDataSource(DynamicDataSourceGlobal.SNAIL_WRITE);
+            DynamicDataSourceHolder.putDataSource(DynamicDataSourceGlobal.LOCAL);
         }
         super.doBegin(transaction, definition);
     }

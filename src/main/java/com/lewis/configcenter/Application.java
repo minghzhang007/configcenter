@@ -104,7 +104,7 @@ public class Application {
     }
 
     @Bean
-    public PlatformTransactionManager transactionManager() {
+    public PlatformTransactionManager dynamicTransactionManager() {
         DynamicDataSourceTransactionManager transactionManager = new DynamicDataSourceTransactionManager();
         transactionManager.setDataSource(dynamicDataSource());
         return transactionManager;

@@ -63,7 +63,7 @@ public class DynamicPlugin implements Interceptor {
                     }
                 }
             }
-            logger.warn("设置方法[{}] use [{}] Strategy, SqlCommandType [{}]..", ms.getId(), dynamicDataSourceGlobal.name(), ms.getSqlCommandType().name());
+            logger.warn("数据库路由[{}] use [{}] Strategy, SqlCommandType [{}]..", ms.getId(), dynamicDataSourceGlobal.name(), ms.getSqlCommandType().name());
             cacheMap.put(ms.getId(), dynamicDataSourceGlobal);
             DynamicDataSourceHolder.putDataSource(dynamicDataSourceGlobal);
         }

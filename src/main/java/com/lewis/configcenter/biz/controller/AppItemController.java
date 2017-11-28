@@ -3,13 +3,15 @@ package com.lewis.configcenter.biz.controller;
 import com.lewis.configcenter.biz.dao.local.ApplicationMapper;
 import com.lewis.configcenter.biz.dao.local.EnvironmentMapper;
 import com.lewis.configcenter.biz.model.constants.PublishStatusEnum;
-import com.lewis.configcenter.biz.model.entity.*;
+import com.lewis.configcenter.biz.model.dto.SwitchConfig;
+import com.lewis.configcenter.biz.model.entity.AppItemDO;
+import com.lewis.configcenter.biz.model.entity.ApplicationDO;
+import com.lewis.configcenter.biz.model.entity.BaseEntityHelper;
+import com.lewis.configcenter.biz.model.entity.EnvironmentDO;
 import com.lewis.configcenter.biz.model.queryobject.AppItemQO;
 import com.lewis.configcenter.biz.model.vo.AppItemVO;
-import com.lewis.configcenter.biz.model.vo.ApplicationVO;
 import com.lewis.configcenter.biz.service.AppItemService;
 import com.lewis.configcenter.common.component.page.PageList;
-import com.lewis.configcenter.common.component.page.Paginator;
 import com.lewis.configcenter.common.core.Json;
 import com.lewis.configcenter.common.core.ResponseJson;
 import com.lewis.configcenter.common.model.MsgConstant;
@@ -43,8 +45,12 @@ public class AppItemController {
     @Resource
     private ApplicationMapper applicationMapper;
 
+    @Resource
+    private SwitchConfig switchConfig;
+
     @GetMapping("/toQuery")
     public String toQuery(@Json ApplicationDO applicationDO, Model model) {
+        System.out.println(switchConfig);
         model.addAttribute("app", applicationDO);
         model.addAttribute("appString", JsonUtils.toString(applicationDO));
         return "appItem/appItemList";
