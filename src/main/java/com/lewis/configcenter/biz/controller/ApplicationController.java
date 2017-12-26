@@ -1,18 +1,19 @@
 package com.lewis.configcenter.biz.controller;
 
 import com.lewis.configcenter.biz.dao.local.DepartmentMapper;
-import com.lewis.configcenter.biz.model.entity.ApplicationDO;
+import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.BaseEntityHelper;
 import com.lewis.configcenter.biz.model.entity.DepartmentDO;
-import com.lewis.configcenter.biz.model.queryobject.ApplicationQO;
-import com.lewis.configcenter.biz.model.vo.ApplicationVO;
-import com.lewis.configcenter.biz.service.ApplicationService;
+import com.lewis.configcenter.biz.model.queryobject.AppQO;
+import com.lewis.configcenter.biz.model.vo.AppVO;
+import com.lewis.configcenter.biz.service.AppService;
 import com.lewis.configcenter.common.component.page.PageList;
 import com.lewis.configcenter.common.core.Json;
 import com.lewis.configcenter.common.core.ResponseJson;
 import com.lewis.configcenter.common.model.MsgConstant;
 import com.lewis.configcenter.common.model.RadioModel;
 import com.lewis.configcenter.common.model.ResultMsg;
+import com.lewis.configcenter.common.model.SelectModel;
 import com.lewis.configcenter.common.util.JsonUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 public class ApplicationController {
 
     @Resource
-    private ApplicationService applicationService;
+    private AppService applicationService;
 
     @Resource
     private DepartmentMapper departmentMapper;
@@ -43,13 +44,13 @@ public class ApplicationController {
 
     @GetMapping("/query")
     @ResponseJson
-    public PageList<ApplicationDO> queryPage(@Json ApplicationQO qo) {
+    public PageList<AppDO> queryPage(@Json AppQO qo) {
 
         return applicationService.pageList(qo);
     }
 
     @GetMapping("/edit")
-    public String editor(@Json ApplicationVO applicationVO, Model model) {
+    public String editor(@Json AppVO applicationVO, Model model) {
         if (StringUtils.isNotBlank(applicationVO.getAppName())) {
             model.addAttribute("app", JsonUtils.toString(applicationVO));
             List<DepartmentDO> departments = departmentMapper.list();
@@ -79,7 +80,7 @@ public class ApplicationController {
 
     @GetMapping("/add")
     @ResponseJson
-    public ResultMsg add(@Json ApplicationVO applicationDO) {
+    public ResultMsg add(@Json AppVO applicationDO) {
         List<RadioModel> departs = applicationDO.getDeparts();
         for (RadioModel depart : departs) {
             if (StringUtils.isNotEmpty(depart.getSelected())) {
@@ -95,9 +96,19 @@ public class ApplicationController {
 
     @GetMapping("/update")
     @ResponseJson
-    public ResultMsg update(@Json ApplicationVO applicationDO) {
+    public ResultMsg update(@Json AppVO applicationDO) {
+        applicationDO.setUpdateTime(System.currentTimeMillis());
+        //todo 设置真实的信息
+        applicationDO.setModifier("zhangminghua01");
         boolean result = applicationService.update(applicationDO);
         return new ResultMsg(result, MsgConstant.getUpdateMsg(result));
+    }
+
+    @GetMapping("/appIds")
+    @ResponseJson
+    public List<SelectModel> appIds() {
+        List<SelectModel> selectModels = applicationService.queryAppIds();
+        return selectModels;
     }
 
 }

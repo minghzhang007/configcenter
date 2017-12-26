@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
  */
 @Data
 @NoArgsConstructor
-public class ApplicationQO extends Paginator{
+public class AppQO extends Paginator{
 
     private String appName;
 

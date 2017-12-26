@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.ReleaseMapper">
+
+    <select id="list" resultType="ReleaseDO">
+        select * from Release
+    </select>
+
+    <insert id="insert" parameterType="ReleaseDO">
+        INSERT INTO Release(ReleaseKey,Name,Comment,AppId,Configurations,Creator,CreateTime,Modifier,UpdateTime)
+        VALUES (#{releaseKey},#{name},#{comment},#{appId},#{configurations},#{creator},#{createTime},#{modifier},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="long">
+       DELETE from Release
+       WHERE Id = #{id}
+   </delete>
+
+</mapper>

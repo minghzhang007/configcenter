@@ -14,19 +14,18 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class ApplicationDO extends BaseEntity implements java.io.Serializable {
+public class AppDO extends BaseEntity implements java.io.Serializable {
 
 
     private static final long serialVersionUID = -4875482884061816223L;
+
+
+    private String appId;
     /**
      * 应用名称  db_column: app_name
      */
     private String appName;
 
-    /**
-     * 应用描述  db_column: app_desc
-     */
-    private String appDesc;
 
     /**
      * 应用负责人  db_column: app_manager

@@ -12,15 +12,11 @@
                 <div class="col-md-2">
                     <input type="text" id="dictKey" placeholder="请输入键" class="form-control">
                 </div>
-                <label for="envName" class="col-md-1 control-label">环境</label>
+
+                <label for="appId" class="col-md-1 control-label">AppId</label>
                 <div class="col-md-2">
-                    <select class="form-control" id="envName">
-                        <option value="">全部</option>
-                        <option value="dev">开发</option>
-                        <option value="test">测试环境</option>
-                        <option value="pre">预发布</option>
-                        <option value="online">线上</option>
-                    </select>
+                    <vue-select :options="appIds" id="appId" clazz="form-control"></vue-select>
+
                 </div>
 
                 <div class="col-md-3">
@@ -43,8 +39,8 @@
     <div class="panel-body">
         <div class="row">
             <div class="form-group">
+                <strong class="col-md-2">应用Id: ${app.appId}</strong>
                 <strong class="col-md-2">应用名称: ${app.appName}</strong>
-                <strong class="col-md-2">应用描述: ${app.appDesc}</strong>
                 <strong class="col-md-2">所属部门: ${app.departDesc}</strong>
             </div>
         </div>
@@ -66,8 +62,6 @@
         <tr>
             <th>键</th>
             <th>值</th>
-            <th>发布状态</th>
-            <th>环境</th>
             <th>状态</th>
             <th>操作</th>
         </tr>
@@ -76,8 +70,6 @@
         <tr v-for="appItem in result.data" align="center">
             <td>{{appItem.dictKey}}</td>
             <td>{{appItem.value}}</td>
-            <td>{{appItem.publishStatus | toPublishStatus}}</td>
-            <td>{{appItem.envDesc}}</td>
             <td>{{appItem.status | toStatusEnum}}</td>
             <td>
                 <button type="button" class="btn btn-default" @click="update(appItem)">修改</button>

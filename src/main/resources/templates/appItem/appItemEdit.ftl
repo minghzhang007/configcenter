@@ -10,7 +10,7 @@
         <div class="row">
             <div class="form-group">
                 <label for="addKey" class="col-md-2 control-label">键</label>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <input type="text" id="addKey" name="addKey" v-model="queryForm.dictKey"
                            placeholder="请输入键"
                            class="form-control">
@@ -20,7 +20,7 @@
         <div class="row">
             <div class="form-group">
                 <label for="addValue" class="col-md-2 control-label">值</label>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <input type="text" id="addValue" name="addValue" v-model="queryForm.value"
                            placeholder="请输入值"
                            class="form-control">
@@ -29,17 +29,8 @@
         </div>
         <div class="row">
             <div class="form-group">
-                <label for="addComment" class="col-md-2 control-label">注释</label>
-                <div class="col-md-4">
-                    <input type="text" id="addComment" name="addComment" v-model="queryForm.comment"
-                           placeholder="请输入该配置项的注释" class="form-control">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="form-group">
                 <label for="addStatus" class="col-md-2 control-label">状态</label>
-                <div class="col-md-4">
+                <div class="col-md-8">
                     <select class="form-control" id="addStatus" name="addStatus" v-model="queryForm.status">
                         <option value="0">有效</option>
                         <option value="-1">删除</option>
@@ -47,7 +38,19 @@
                 </div>
             </div>
         </div>
-        <div>
+        <div class="row">
+            <div class="form-group">
+                <label for="addComment" class="col-md-2 control-label">注释</label>
+                <div class="col-md-8">
+                    <textarea id="addComment" name="addComment" v-model="queryForm.comment"
+                              placeholder="请输入该配置项的注释" class="form-control"></textarea>
+     <#--               <input type="text" id="addComment" name="addComment" v-model="queryForm.comment"
+                           placeholder="请输入该配置项的注释" class="form-control">-->
+                </div>
+            </div>
+        </div>
+
+        <#--<div>
             <fieldset>
                 <legend>环境：</legend>
             </fieldset>
@@ -62,7 +65,7 @@
                 </tr>
                 </tbody>
             </table>
-        </div>
+        </div>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>

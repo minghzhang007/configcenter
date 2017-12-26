@@ -1,6 +1,6 @@
 package com.lewis.configcenter.biz.model.vo;
 
-import com.lewis.configcenter.biz.model.entity.AppItemDO;
+import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.common.model.RadioModel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,9 +12,7 @@ import java.util.List;
  */
 @Data
 @NoArgsConstructor
-public class AppItemVO extends AppItemDO {
+public class AppVO extends AppDO {
 
-    private List<RadioModel> envs;
-
-    private List<RadioModel> apps;
+    private List<RadioModel> departs;
 }

@@ -10,6 +10,7 @@
 <script type="text/javascript" src="${request.contextPath}/js/nav.js"></script>
 <script type="text/javascript" src="${request.contextPath}/js/toastr.js"></script>
 <script type="text/javascript" src="${request.contextPath}/js/bootstrapValidator.js"></script>
+<script type="text/javascript" src="${request.contextPath}/js/vue.select.js"></script>
 </#macro>
 
 <#macro css>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.ItemMapper">
+
+    <select id="list" resultType="ItemDO" parameterType="com.lewis.configcenter.biz.model.queryobject.ItemQO">
+        select * from Item
+        <where>
+            <if test="appId != null">
+                AppId = #{appId}
+            </if>
+            <if test="dictKey != null">
+                AND DictKey like concat('%',#{dictKey},'%')
+            </if>
+        </where>
+    </select>
+
+    <insert id="insert" parameterType="ItemDO">
+        INSERT INTO Item(AppId,AppName,DictKey,Value,Comment,Status,Creator,CreateTime,Modifier,UpdateTime)
+        VALUES (#{appId},#{appName},#{dictKey},#{value},#{comment},#{status},#{creator},#{createTime},#{modifier},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="long">
+       DELETE from Item
+       WHERE Id = #{id}
+   </delete>
+
+    <update id="update" parameterType="ItemDO">
+        UPDATE Item
+        SET Value =#{value},Comment = #{comment}
+        WHERE Id = #{id}
+    </update>
+
+</mapper>

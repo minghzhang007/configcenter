@@ -14,12 +14,12 @@ $(document).ready(function () {
 
         methods: {
             submitData: function () {
-                this.queryForm.envs = this.envs;
-                this.queryForm.apps = this.apps;
+               // this.queryForm.envs = this.envs;
+               // this.queryForm.apps = this.apps;
                 var app = JSON.parse($("#appString").text());
                 var appInfo = {
-                    "appName": app.appName,
-                    "appDesc": app.appDesc
+                    "appId": app.appId,
+                    "appName": app.appName
                 };
                 var id = this.queryForm.id;
                 var url = window.location.protocol + "//" + window.location.host;

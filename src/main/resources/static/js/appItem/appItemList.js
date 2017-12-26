@@ -6,6 +6,7 @@ listVM = new Vue({
         pageSize: 100,
         // 搜索表单
         queryForm: {},
+        appIds: [],
         // 结果对象
         result: {
             data: [],
@@ -18,6 +19,7 @@ listVM = new Vue({
     },
     mounted: function () {
         this.$nextTick(function () {
+            this.queryAppIds();
             this.query();
         })
     }
@@ -26,9 +28,14 @@ listVM = new Vue({
         query: function () {
             var _this = this;
             var url = window.location.protocol + "//" + window.location.host;
+            var appId = JSON.parse($("#appString").text()).appId;
+            if(appId === undefined || appId === ''){
+                appId = $("#appId").val();
+            }
+            console.log("appId:"+appId);
             var formData = {
                 "dictKey": $("#dictKey").val(),
-                "envName": $("#envName").val(),
+                "appId": appId,
                 "currentPage": _this.result.paginator.currentPage,
                 "pageSize": _this.pageSize,
                 "totalCount": _this.result.paginator.totalCount
@@ -41,6 +48,19 @@ listVM = new Vue({
                 data: JSON.stringify(formData),
                 success: function (data) {
                     _this.result = data;
+                }
+            });
+        },
+        queryAppIds: function () {
+            var _this = this;
+            var url = window.location.protocol + "//" + window.location.host;
+            $.ajax({
+                url: url + "/app/appIds",
+                type: "GET",
+                dataType: "json",
+                data: {},
+                success: function (data) {
+                    _this.appIds = data;
                 }
             });
         },

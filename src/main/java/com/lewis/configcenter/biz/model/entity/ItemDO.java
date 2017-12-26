@@ -14,21 +14,17 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class AppItemDO extends BaseEntity implements java.io.Serializable {
+public class ItemDO extends BaseEntity implements java.io.Serializable {
 
 
     private static final long serialVersionUID = -3692172690353486545L;
+
+    private String appId;
 
     /**
      * 应用名称  db_column: app_name
      */
     private String appName;
-
-    private String appDesc;
-
-    private String envName;
-
-    private String envDesc;
 
     /**
      * 配置项的key  db_column: key
@@ -44,8 +40,5 @@ public class AppItemDO extends BaseEntity implements java.io.Serializable {
      * 配置项的评论  db_column: comment
      */
     private String comment;
-
-    private Integer publishStatus;
-
 
 }

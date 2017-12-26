@@ -26,4 +26,14 @@ public class BaseEntity {
      * 修改时间  db_column: update_time
      */
     private Long updateTime;
+
+    /**
+     * 创建人
+     */
+    private String creator;
+
+    /**
+     * 修改人
+     */
+    private String modifier;
 }

@@ -9,6 +9,16 @@
     <div class="modal-body">
         <div class="row">
             <div class="form-group">
+                <label for="addAppId" class="col-md-2 control-label">AppId</label>
+                <div class="col-md-4">
+                    <input type="text" id="addAppId" name="addAppId" v-model="queryForm.appId"
+                           placeholder="请输入应用描述"
+                           class="form-control">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group">
                 <label for="addAppName" class="col-md-2 control-label">应用名称</label>
                 <div class="col-md-4">
                     <input type="text" id="addAppName" name="addAppName" v-model="queryForm.appName"
@@ -17,16 +27,7 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="form-group">
-                <label for="addAppDesc" class="col-md-2 control-label">应用描述</label>
-                <div class="col-md-4">
-                    <input type="text" id="addAppDesc" name="addAppDesc" v-model="queryForm.appDesc"
-                           placeholder="请输入应用描述"
-                           class="form-control">
-                </div>
-            </div>
-        </div>
+
         <div class="row">
             <div class="form-group">
                 <label for="addStatus" class="col-md-2 control-label">状态</label>

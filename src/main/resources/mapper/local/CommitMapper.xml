@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.CommitMapper">
+
+    <select id="list" resultType="CommitDO">
+        select * from Commit
+    </select>
+
+    <insert id="insert" parameterType="AppDO">
+        INSERT INTO Commit(ChangeSets,AppId,Creator,CreateTime,Modifier,UpdateTime)
+        VALUES (#{changeSets},#{appId},#{creator},#{createTime},#{modifier},#{updateTime})
+    </insert>
+
+    <delete id="delete" parameterType="long">
+       DELETE from Commit
+       WHERE Id = #{id}
+   </delete>
+
+
+</mapper>

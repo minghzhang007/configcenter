@@ -43,7 +43,6 @@
         <tr>
             <th>应用ID</th>
             <th>应用名称</th>
-            <th>应用描述</th>
             <th>所属部门</th>
             <th>状态</th>
             <th>操作</th>
@@ -51,9 +50,8 @@
         </thead>
         <tbody>
         <tr v-for="app in result.data" align="center">
-            <td>{{app.id}}</td>
-            <td>{{app.appName}}</td>
-            <td><a style="color:blue;cursor: pointer" @click="detail(app)">{{app.appDesc}}</a> </td>
+            <td>{{app.appId}}</td>
+            <td><a style="color:blue;cursor: pointer" @click="detail(app)">{{app.appName}}</a></td>
             <td>{{app.departDesc}}</td>
             <td>{{app.status | toStatusEnum}}</td>
             <td>
