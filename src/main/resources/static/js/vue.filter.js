@@ -1,12 +1,20 @@
 Vue.filter("toDateTime",
     function (value) {
         if (value) {
+            if (isString(value)) {
+                value = parseInt(value);
+            }
             return moment(value).format('YYYY-MM-DD HH:mm:ss');
         } else {
             return value;
         }
     }
 );
+
+function isString(value) {
+    return (typeof value == 'string') && value.constructor == String;
+}
+
 
 Vue.filter("toDate",
     function (value) {

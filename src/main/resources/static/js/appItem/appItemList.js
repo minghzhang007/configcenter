@@ -91,12 +91,38 @@ listVM = new Vue({
             });
         },
 
-        publish: function (appName, envName) {
+        del:function (item) {
+            var _this = this;
+            var url = window.location.protocol + "//" + window.location.host;
+            $.ajax({
+                url: url + "/appItem/delete",
+                type: "GET",
+                dataType: "json",
+                data: JSON.stringify(item),
+                success: function (data) {
+                    if (data && data.success) {
+                        $('#addModal').modal('hide');
+                        listVM.query();
+                        toastr.success(data.msg, '操作结果：', {timeOut: 2000, positionClass: "toast-top-center"});
+                    } else {
+                        toastr.error(data.msg, '操作结果：', {timeOut: 2000, positionClass: "toast-top-center"});
+                    }
+                }
+            });
+        },
+
+        publish: function () {
+            var url = window.location.protocol + "//" + window.location.host;
             var app = JSON.parse($("#appString").text());
+            $("#publishModal").modal({
+                show: true,
+                remote: url + "/appItem/toPublish?" + JSON.stringify(app),
+                backdrop: 'static'
+            });
+
+            /*var app = JSON.parse($("#appString").text());
             var formData = {
-                "dictKey": $("#dictKey").val(),
-                "envName": $("#envName").val(),
-                "appName": app.appName
+                "appId": app.appName
             };
             var url = window.location.protocol + "//" + window.location.host;
             $.ajax({
@@ -113,11 +139,15 @@ listVM = new Vue({
                         toastr.error(data.msg, '操作结果：', {timeOut: 2000, positionClass: "toast-top-center"});
                     }
                 }
-            });
+            });*/
         }
     }
 });
 
 $("#addModal").on("hidden.bs.modal", function () {
+    $(this).removeData("bs.modal");
+});
+
+$("#publishModal").on("hidden.bs.modal", function () {
     $(this).removeData("bs.modal");
 });

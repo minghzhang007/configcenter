@@ -17,4 +17,6 @@ public interface ItemMapper {
     int insert(ItemDO appItemDO);
 
     int update(ItemDO appItemDO);
+
+    int delete(Long id);
 }

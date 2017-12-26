@@ -44,8 +44,6 @@
                 <div class="col-md-8">
                     <textarea id="addComment" name="addComment" v-model="queryForm.comment"
                               placeholder="请输入该配置项的注释" class="form-control"></textarea>
-     <#--               <input type="text" id="addComment" name="addComment" v-model="queryForm.comment"
-                           placeholder="请输入该配置项的注释" class="form-control">-->
                 </div>
             </div>
         </div>

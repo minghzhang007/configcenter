@@ -1,8 +1,12 @@
 package com.lewis.configcenter.biz.service;
 
+import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.ItemDO;
 import com.lewis.configcenter.biz.model.queryobject.ItemQO;
+import com.lewis.configcenter.biz.model.vo.ItemDTO;
 import com.lewis.configcenter.common.component.page.PageList;
+
+import java.util.List;
 
 /**
  * Created by Administrator on 2017/11/15.
@@ -13,7 +17,11 @@ public interface ItemService {
 
     boolean update(ItemDO appItemDO);
 
-    PageList<ItemDO> pageList(ItemQO appItemQO);
+    PageList<ItemDTO> pageList(ItemQO appItemQO);
+
+    List<ItemDTO> changes(AppDO appDO);
+
+    boolean delete(ItemDO itemDO);
 
     boolean publish(ItemQO appItemQO);
 }

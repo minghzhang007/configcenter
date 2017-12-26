@@ -3,16 +3,21 @@
 <mapper namespace="com.lewis.configcenter.biz.dao.local.ReleaseMapper">
 
     <select id="list" resultType="ReleaseDO">
-        select * from Release
+        select * from CRelease
+    </select>
+    
+    <select id="queryLastRelease" resultType="ReleaseDO">
+        select * from CRelease
+        order by Id desc limit 1
     </select>
 
     <insert id="insert" parameterType="ReleaseDO">
-        INSERT INTO Release(ReleaseKey,Name,Comment,AppId,Configurations,Creator,CreateTime,Modifier,UpdateTime)
+        INSERT INTO CRelease(ReleaseKey,Name,Comment,AppId,Configurations,Creator,CreateTime,Modifier,UpdateTime)
         VALUES (#{releaseKey},#{name},#{comment},#{appId},#{configurations},#{creator},#{createTime},#{modifier},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">
-       DELETE from Release
+       DELETE from CRelease
        WHERE Id = #{id}
    </delete>
 

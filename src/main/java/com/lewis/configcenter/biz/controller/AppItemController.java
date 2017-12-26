@@ -8,9 +8,10 @@ import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.BaseEntityHelper;
 import com.lewis.configcenter.biz.model.entity.EnvironmentDO;
 import com.lewis.configcenter.biz.model.queryobject.ItemQO;
-import com.lewis.configcenter.biz.model.vo.ItemVO;
+import com.lewis.configcenter.biz.model.vo.ItemDTO;
 import com.lewis.configcenter.biz.service.ItemService;
 import com.lewis.configcenter.common.component.page.PageList;
+import com.lewis.configcenter.common.core.App;
 import com.lewis.configcenter.common.core.Json;
 import com.lewis.configcenter.common.core.ResponseJson;
 import com.lewis.configcenter.common.model.MsgConstant;
@@ -51,13 +52,13 @@ public class AppItemController {
         System.out.println(switchConfig);
         model.addAttribute("app", applicationDO);
         model.addAttribute("appString", JsonUtils.toString(applicationDO));
-        return "appItem/appItemList";
+        return "appItem/itemList";
     }
 
     @GetMapping("/query")
     @ResponseJson
-    public PageList<ItemDO> pageList(@Json ItemQO appItemQO) {
-        PageList<ItemDO> appItemDOPageList = appItemService.pageList(appItemQO);
+    public PageList<ItemDTO> pageList(@Json ItemQO appItemQO) {
+        PageList<ItemDTO> appItemDOPageList = appItemService.pageList(appItemQO);
         return appItemDOPageList;
     }
 
@@ -105,13 +106,13 @@ public class AppItemController {
             model.addAttribute("appItem", JsonUtils.toString(appItemDO));
             model.addAttribute("envs", JsonUtils.toString(envs));
         }
-        return "appItem/appItemEdit";
+        return "appItem/itemEdit";
     }
 
     @GetMapping("/add")
     @ResponseJson
     public ResultMsg add(@Json ItemDO appItemVO) {
-       // List<RadioModel> envs = appItemVO.getEnvs();
+        // List<RadioModel> envs = appItemVO.getEnvs();
         /*for (RadioModel env : envs) {
             if (StringUtils.isNotEmpty(env.getSelected())) {
                 appItemVO.setEnvName(env.getKey());
@@ -127,9 +128,29 @@ public class AppItemController {
 
     @GetMapping("/update")
     @ResponseJson
-    public ResultMsg update(@Json ItemVO appItemVO) {
+    public ResultMsg update(@Json ItemDO appItemVO) {
         boolean result = appItemService.update(appItemVO);
         return new ResultMsg(result, MsgConstant.getUpdateMsg(result));
+    }
+
+    @GetMapping("/delete")
+    @ResponseJson
+    public ResultMsg delete(@Json ItemDO itemDO) {
+        boolean result = appItemService.delete(itemDO);
+        return new ResultMsg(result, MsgConstant.getDeleteMsg(result));
+    }
+
+    @GetMapping("/toPublish")
+    public String toPublish(){
+
+        return "appItem/itemPublish";
+    }
+
+    @GetMapping("/changes")
+    @ResponseJson
+    public List<ItemDTO> changes(@Json AppDO appDO){
+        List<ItemDTO> changes = appItemService.changes(appDO);
+        return changes;
     }
 
     @GetMapping("/publish")

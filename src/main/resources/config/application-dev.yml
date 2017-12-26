@@ -43,7 +43,7 @@ spring:
     request-context-attribute: request
 
 server:
-  port: 8070
+  port: 8010
 
 security:
   basic:

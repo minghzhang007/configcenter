@@ -9,6 +9,8 @@ public interface ReleaseMapper {
 
     List<ReleaseDO> list(ReleaseQO qo);
 
+    ReleaseDO queryLastRelease();
+
     int insert(ReleaseDO releaseDO);
 
     int delete(Long id);

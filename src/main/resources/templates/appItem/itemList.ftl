@@ -56,10 +56,19 @@
     </div>
 </div>
 
+<div class="modal fade" id="publishModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+        </div>
+    </div>
+</div>
+
 <div>
     <table class="table table-bordered table-hover table-striped">
         <thead>
         <tr>
+            <th>发布状态</th>
             <th>键</th>
             <th>值</th>
             <th>状态</th>
@@ -68,11 +77,30 @@
         </thead>
         <tbody>
         <tr v-for="appItem in result.data" align="center">
-            <td>{{appItem.dictKey}}</td>
-            <td>{{appItem.value}}</td>
-            <td>{{appItem.status | toStatusEnum}}</td>
+            <td>
+                <span v-if="appItem.deleted || appItem.new || appItem.modified" style="background-color: yellow">
+                    未发布
+                </span>
+                <span v-else style="background-color: gray">
+                    已发布
+                </span>
+            </td>
+            <td>{{appItem.item.dictKey}}
+                <span v-if="appItem.deleted" style="background-color: red">
+                    删除
+                </span>
+                <span v-else-if="appItem.new" style="background-color: green;color:white">
+                    新
+                </span>
+                <span v-else-if="appItem.modified" style="background-color: red">
+                    改
+                </span>
+            </td>
+            <td>{{appItem.item.value}}</td>
+            <td>{{appItem.item.status | toStatusEnum}}</td>
             <td>
                 <button type="button" class="btn btn-default" @click="update(appItem)">修改</button>
+                <button type="button" class="btn btn-default" @click="del(appItem)">删除</button>
             </td>
         </tr>
         </tbody>

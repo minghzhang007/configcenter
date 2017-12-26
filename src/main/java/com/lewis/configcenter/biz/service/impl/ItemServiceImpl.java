@@ -1,25 +1,38 @@
 package com.lewis.configcenter.biz.service.impl;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.lewis.configcenter.biz.dao.local.CommitMapper;
 import com.lewis.configcenter.biz.dao.local.ItemMapper;
+import com.lewis.configcenter.biz.dao.local.ReleaseMapper;
 import com.lewis.configcenter.biz.model.constants.Constants;
 import com.lewis.configcenter.biz.model.constants.PublishStatusEnum;
 import com.lewis.configcenter.biz.model.constants.StatusEnum;
+import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.CommitDO;
 import com.lewis.configcenter.biz.model.entity.ItemDO;
+import com.lewis.configcenter.biz.model.entity.ReleaseDO;
 import com.lewis.configcenter.biz.model.queryobject.ItemQO;
+import com.lewis.configcenter.biz.model.vo.ItemDTO;
 import com.lewis.configcenter.biz.service.ItemService;
 import com.lewis.configcenter.biz.util.ConfigChangeSetBuilder;
 import com.lewis.configcenter.common.component.page.PageList;
 import com.lewis.configcenter.common.component.page.PageTemplate;
 import com.lewis.configcenter.common.component.transactional.TransactionalComponent;
+import com.lewis.configcenter.common.util.JsonUtils;
+import com.lewis.configcenter.common.util.ListUtil;
+import com.lewis.configcenter.common.util.StringUtil;
 import com.lewis.configcenter.common.zookeeper.ZkComponent;
+import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * Created by Administrator on 2017/11/15.
@@ -33,6 +46,9 @@ public class ItemServiceImpl implements ItemService {
 
     @Resource
     private CommitMapper commitMapper;
+
+    @Resource
+    private ReleaseMapper releaseMapper;
 
     @Resource
     private TransactionalComponent transactionalComponent;
@@ -97,9 +113,82 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public PageList<ItemDO> pageList(ItemQO appItemQO) {
+    public PageList<ItemDTO> pageList(ItemQO appItemQO) {
         PageTemplate<ItemDO> pageTemplate = () -> appItemMapper.list(appItemQO);
-        return pageTemplate.getItemsByPage(appItemQO);
+        PageList<ItemDO> itemsByPage = pageTemplate.getItemsByPage(appItemQO);
+        Collection<ItemDO> data = itemsByPage.getData();
+        List<ItemDTO> list = convert(data);
+        return new PageList<>(list, itemsByPage.getPaginator());
+    }
+
+    @Override
+    public List<ItemDTO> changes(AppDO appDO) {
+        ItemQO appItemQO = new ItemQO();
+        appItemQO.setAppId(appDO.getAppId());
+        List<ItemDO> itemDOS = appItemMapper.list(appItemQO);
+        List<ItemDTO> list = convert(itemDOS);
+        return list.stream().filter(item -> item.isNew() || item.isModified() || item.isDeleted()).collect(Collectors.toList());
+    }
+
+    @Override
+    public boolean delete(ItemDO itemDO) {
+        int deleteCount = appItemMapper.delete(itemDO.getId());
+        return deleteCount == 1;
+    }
+
+    private List<ItemDTO> convert(Collection<ItemDO> data) {
+        if (CollectionUtils.isEmpty(data)) {
+            return Lists.newArrayList();
+        }
+
+        ReleaseDO releaseDO = releaseMapper.queryLastRelease();
+        Map<String, String> releaseItems = Maps.newHashMap();
+        if (releaseDO != null) {
+            releaseItems = JsonUtils.toBean(releaseDO.getConfigurations(), Map.class);
+        }
+        Map<String, String> finalReleaseItems = releaseItems;
+        List<ItemDTO> collect = data.stream().map(itemDO -> transform(itemDO, finalReleaseItems)).collect(Collectors.toList());
+        List<ItemDTO> deleteItems = createDeleteItems(data, releaseItems);
+        collect.addAll(deleteItems);
+        return collect;
+    }
+
+    private List<ItemDTO> createDeleteItems(Collection<ItemDO> data, Map<String, String> releaseItems) {
+        List<ItemDTO> list = Lists.newLinkedList();
+        Map<String, ItemDO> dictKeyMapping = ListUtil.collectToMap(data, item -> item.getDictKey(), item -> item);
+        releaseItems.forEach((key, value) -> {
+            ItemDO itemDO = dictKeyMapping.get(key);
+            if (itemDO == null) {
+                ItemDTO deletedItem = new ItemDTO();
+                deletedItem.setDeleted(true);
+                itemDO = new ItemDO();
+                itemDO.setDictKey(key);
+                itemDO.setValue(value);
+                deletedItem.setItem(itemDO);
+                deletedItem.setOldValue(value);
+                deletedItem.setNewValue(null);
+                deletedItem.setModified(false);
+                list.add(deletedItem);
+            }
+        });
+        return list;
+    }
+
+    private ItemDTO transform(ItemDO itemDO, Map<String, String> releaseItems) {
+        ItemDTO dto = new ItemDTO();
+        dto.setItem(itemDO);
+        String newValue = itemDO.getValue();
+        String oldValue = releaseItems.get(itemDO.getDictKey());
+        if (!StringUtil.isEmpty(itemDO.getDictKey()) && (oldValue == null || !newValue.equals(oldValue))) {
+            dto.setOldValue(oldValue == null ? null : oldValue);
+            dto.setNewValue(newValue);
+            if (dto.getOldValue() == null) {
+                dto.setNew(true);
+            } else {
+                dto.setModified(true);
+            }
+        }
+        return dto;
     }
 
     @Override
