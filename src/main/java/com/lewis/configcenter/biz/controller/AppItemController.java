@@ -2,6 +2,7 @@ package com.lewis.configcenter.biz.controller;
 
 import com.lewis.configcenter.biz.dao.local.AppMapper;
 import com.lewis.configcenter.biz.dao.local.EnvironmentMapper;
+import com.lewis.configcenter.biz.model.dto.ReleaseDTO;
 import com.lewis.configcenter.biz.model.dto.SwitchConfig;
 import com.lewis.configcenter.biz.model.entity.ItemDO;
 import com.lewis.configcenter.biz.model.entity.AppDO;
@@ -18,6 +19,7 @@ import com.lewis.configcenter.common.model.MsgConstant;
 import com.lewis.configcenter.common.model.RadioModel;
 import com.lewis.configcenter.common.model.ResultMsg;
 import com.lewis.configcenter.common.util.JsonUtils;
+import com.lewis.configcenter.common.util.TimeTokenUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -148,9 +150,12 @@ public class AppItemController {
 
     @GetMapping("/changes")
     @ResponseJson
-    public List<ItemDTO> changes(@Json AppDO appDO){
+    public ReleaseDTO changes(@Json AppDO appDO){
+        ReleaseDTO dto = new ReleaseDTO();
         List<ItemDTO> changes = appItemService.changes(appDO);
-        return changes;
+        dto.setItemDtos(changes);
+        dto.setReleaseName(TimeTokenUtils.createTimeToken()+"-Release");
+        return dto;
     }
 
     @GetMapping("/publish")
@@ -159,4 +164,5 @@ public class AppItemController {
         boolean result = appItemService.publish(appItemQO);
         return new ResultMsg(result, MsgConstant.getPublishMsg(result));
     }
+
 }

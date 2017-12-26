@@ -91,7 +91,7 @@ public class ItemServiceImpl implements ItemService {
     private String getPath(ItemDO appItemDO) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append("/").append(Constants.ROOT_NODE)
-                .append("/").append(appItemDO.getAppName())
+                .append("/").append(appItemDO.getAppId())
                 .append("/").append(appItemDO.getDictKey());
         return stringBuilder.toString();
     }

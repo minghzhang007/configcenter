@@ -8,11 +8,16 @@ $(document).ready(function () {
         data: {
             //表单数据
             queryForm: {},
-            changes: []
+            result:{
+                itemDtos:[],
+                releaseName: ""
+            },
+
         },
         mounted: function () {
             this.$nextTick(function () {
                 this.query();
+                this.createReleaseName();
             })
         },
 
@@ -31,7 +36,21 @@ $(document).ready(function () {
                     dataType: "json",
                     data: JSON.stringify(appInfo),
                     success: function (data) {
-                        _this.changes = data;
+                        _this.result = data;
+                    }
+                });
+            },
+
+            createReleaseName: function () {
+                var _this = this;
+                var url = window.location.protocol + "//" + window.location.host;
+                $.ajax({
+                    url: url + "/appItem/releaseName",
+                    type: "GET",
+                    dataType: "text",
+                    data: {},
+                    success: function (data) {
+                        _this.releaseName = data;
                     }
                 });
             },

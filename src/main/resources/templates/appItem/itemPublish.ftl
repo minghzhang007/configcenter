@@ -7,17 +7,6 @@
 
 <form class="form-horizontal form" role="form" id="modalForm">
     <div class="modal-body">
-        <div class="row">
-            <div class="form-group">
-                <label for="addKey" class="col-md-2 control-label">键</label>
-                <div class="col-md-8">
-                    <input type="text" id="addKey" name="addKey" v-model="queryForm.dictKey"
-                           placeholder="请输入键"
-                           class="form-control">
-                </div>
-            </div>
-        </div>
-
         <div>
             <fieldset>
                 <legend>变更：</legend>
@@ -33,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in changes">
+                <tr v-for="item in result.itemDtos">
                     <td>{{item.item.dictKey}}</td>
                     <td>{{item.oldValue}}</td>
                     <td>{{item.newValue}}</td>
@@ -48,7 +37,7 @@
             <div class="form-group">
                 <label for="releaseName" class="col-md-2 control-label">Release-Name</label>
                 <div class="col-md-8">
-                    <input type="text" class="form-control" id="releaseName" name="releaseName" v-model="queryForm.releaseName"/>
+                    <input type="text" class="form-control" id="releaseName" name="releaseName" v-model="result.releaseName"/>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@ public class SwitchConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        zkRegister.register(this);
+        //zkRegister.register(this);
     }
 
 }
