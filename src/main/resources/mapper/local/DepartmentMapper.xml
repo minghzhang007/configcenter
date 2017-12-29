@@ -3,22 +3,22 @@
 <mapper namespace="com.lewis.configcenter.biz.dao.local.DepartmentMapper">
 
     <select id="list" resultType="departmentDO">
-        select * from Department
+        select * from department
     </select>
 
 
     <insert id="insert" parameterType="departmentDO">
-        INSERT INTO Department(DepartName,DepartDesc,Status,CreateTime,UpdateTime)
+        INSERT INTO department(DepartName,DepartDesc,Status,CreateTime,UpdateTime)
         VALUES (#{departName},#{departDesc},#{status},#{createTime},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">
-        DELETE FROM Department
+        DELETE FROM department
         WHERE Id = #{id}
     </delete>
 
     <update id="update" parameterType="departmentDO">
-        UPDATE Department
+        UPDATE department
         SET DepartName =#{departName},
         DepartDesc = #{departDesc},
         Status = #{status}

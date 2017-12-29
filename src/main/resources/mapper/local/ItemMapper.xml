@@ -3,7 +3,7 @@
 <mapper namespace="com.lewis.configcenter.biz.dao.local.ItemMapper">
 
     <select id="list" resultType="ItemDO" parameterType="com.lewis.configcenter.biz.model.queryobject.ItemQO">
-        select * from Item
+        select * from item
         <where>
             <if test="appId != null">
                 AppId = #{appId}
@@ -15,17 +15,17 @@
     </select>
 
     <insert id="insert" parameterType="ItemDO">
-        INSERT INTO Item(AppId,AppName,DictKey,Value,Comment,Status,Creator,CreateTime,Modifier,UpdateTime)
+        INSERT INTO item(AppId,AppName,DictKey,Value,Comment,Status,Creator,CreateTime,Modifier,UpdateTime)
         VALUES (#{appId},#{appName},#{dictKey},#{value},#{comment},#{status},#{creator},#{createTime},#{modifier},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">
-       DELETE from Item
+       DELETE from item
        WHERE Id = #{id}
    </delete>
 
     <update id="update" parameterType="ItemDO">
-        UPDATE Item
+        UPDATE item
         SET Value =#{value},Comment = #{comment}
         WHERE Id = #{id}
     </update>

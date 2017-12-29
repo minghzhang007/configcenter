@@ -28,7 +28,7 @@ import java.util.Objects;
 public class ZkComponent {
 
 
-    private final String CONNECT_STRING = "localhost:2181";
+    private final String CONNECT_STRING = "47.100.39.91:2181";
 
     private final int SESSTION_TIMEOUT = 50000;
 

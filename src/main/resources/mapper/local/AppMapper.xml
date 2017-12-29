@@ -3,21 +3,21 @@
 <mapper namespace="com.lewis.configcenter.biz.dao.local.AppMapper">
 
     <select id="list" resultType="AppDO">
-        select * from App
+        select * from app
     </select>
 
     <insert id="insert" parameterType="AppDO">
-        INSERT INTO App(AppId,AppName,AppManager,DepartName,DepartDesc,Status,Creator,CreateTime,Modifier,UpdateTime)
+        INSERT INTO app(AppId,AppName,AppManager,DepartName,DepartDesc,Status,Creator,CreateTime,Modifier,UpdateTime)
         VALUES (#{appId},#{appName},#{appManager},#{departName},#{departDesc},#{status},#{creator},#{createTime},#{modifier},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">
-       DELETE from App
+       DELETE from app
        WHERE Id = #{id}
    </delete>
 
     <update id="update" parameterType="AppDO">
-        UPDATE App
+        UPDATE app
         SET AppName = #{appName},
         Status = #{status},
         AppManager = #{appManager},

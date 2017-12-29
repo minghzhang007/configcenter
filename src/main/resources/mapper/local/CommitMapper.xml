@@ -3,16 +3,16 @@
 <mapper namespace="com.lewis.configcenter.biz.dao.local.CommitMapper">
 
     <select id="list" resultType="CommitDO">
-        select * from Commit
+        select * from commit
     </select>
 
     <insert id="insert" parameterType="AppDO">
-        INSERT INTO Commit(ChangeSets,AppId,Creator,CreateTime,Modifier,UpdateTime)
+        INSERT INTO commit(ChangeSets,AppId,Creator,CreateTime,Modifier,UpdateTime)
         VALUES (#{changeSets},#{appId},#{creator},#{createTime},#{modifier},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">
-       DELETE from Commit
+       DELETE from commit
        WHERE Id = #{id}
    </delete>
 
