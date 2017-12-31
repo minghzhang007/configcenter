@@ -27,7 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@Service
+//@Service
 public class OpenIdServiceImpl implements OpenIdService {
 
     @Resource
@@ -40,7 +40,7 @@ public class OpenIdServiceImpl implements OpenIdService {
 
     private final String OPENID_ASSOCIATE_CACHE_KEY = LoginCacheEnum.OPENID_ASSOCIATE.make("associate");
 
-    @Resource
+    //@Resource
     private NkvComponent nkvComponent;
 
     @PostConstruct
@@ -51,16 +51,16 @@ public class OpenIdServiceImpl implements OpenIdService {
 
     @Override
     public String getRedirectUrl(String redirect) throws Exception {
-        OpenIdAssociate associate = nkvComponent.get(OPENID_ASSOCIATE_CACHE_KEY, OpenIdAssociate.class);
+        /*OpenIdAssociate associate = nkvComponent.get(OPENID_ASSOCIATE_CACHE_KEY, OpenIdAssociate.class);
         if (associate == null) {
             associate = associate();
             nkvComponent.put(OPENID_ASSOCIATE_CACHE_KEY, associate, associate.getExpires_in());
-        }
+        }*/
 
         UriParams uriParams = new UriParams();
         uriParams.add("openid.ns", "http://specs.openid.net/auth/2.0");
         uriParams.add("openid.mode", "checkid_setup");
-        uriParams.add("openid.assoc_handle", associate.getAssoc_handle());
+       // uriParams.add("openid.assoc_handle", associate.getAssoc_handle());
         uriParams.add("openid.return_to", new UriBuilder(OPENID_CALLBACK).add("redirect", redirect).toUri());
         uriParams.add("openid.claimed_id", "http://specs.openid.net/auth/2.0/identifier_select");
         uriParams.add("openid.identity", "http://specs.openid.net/auth/2.0/identifier_select");
@@ -75,10 +75,10 @@ public class OpenIdServiceImpl implements OpenIdService {
     @Override
     public boolean validateCallbackUrl(Map<String, String> callbackParams) {
         try {
-            OpenIdAssociate associate = nkvComponent.get(OPENID_ASSOCIATE_CACHE_KEY, OpenIdAssociate.class);
+           /* OpenIdAssociate associate = nkvComponent.get(OPENID_ASSOCIATE_CACHE_KEY, OpenIdAssociate.class);
             if (associate == null) {
                 return false;
-            }
+            }*/
 
             String openidMode = callbackParams.get("openid.mode");
             if (!StringUtils.equals(openidMode, "id_res")) {
@@ -96,7 +96,7 @@ public class OpenIdServiceImpl implements OpenIdService {
             }
 
             String openidAssocHandle = callbackParams.get("openid.assoc_handle");
-            if (StringUtils.equals(openidAssocHandle, associate.getAssoc_handle())) {
+           /* if (StringUtils.equals(openidAssocHandle, associate.getAssoc_handle())) {
 
                 String openidSig = callbackParams.get("openid.sig");
                 String sig = null;
@@ -126,7 +126,7 @@ public class OpenIdServiceImpl implements OpenIdService {
                 if (!StringUtils.equals(parse(response).get("is_valid"), "true")) {
                     return false;
                 }
-            }
+            }*/
 
             return true;
         } catch (Exception e) {

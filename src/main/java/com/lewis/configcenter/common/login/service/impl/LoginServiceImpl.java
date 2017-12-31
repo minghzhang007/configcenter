@@ -21,7 +21,7 @@ import java.util.UUID;
 @Service
 public class LoginServiceImpl implements LoginService {
 
-    @Resource
+    //@Resource
     private NkvComponent nkvComponent;
 
     @Override
@@ -29,14 +29,14 @@ public class LoginServiceImpl implements LoginService {
         String key = UUID.randomUUID() + "-" + System.currentTimeMillis(); // 登录缓存key，也是cookie值
         String sign = SignatureUtils.generateLoginSignature(key + "\n" + accountUserName);
         String base64 = Base64.encodeBase64String(StringUtil.stringToBytes(accountUserName + "\n" + sign, "UTF-8"));
-        nkvComponent.put(LoginCacheEnum.LOGIN_COOKIE.make(key), new LoginCookie(base64), LoginConstants.LOGIN_COOKIE_EXPIRE);
-        nkvComponent.put(LoginCacheEnum.LOGIN_SINGLE.make(accountUserName), key, LoginConstants.LOGIN_COOKIE_EXPIRE); // 禁止重复登录
+       // nkvComponent.put(LoginCacheEnum.LOGIN_COOKIE.make(key), new LoginCookie(base64), LoginConstants.LOGIN_COOKIE_EXPIRE);
+       // nkvComponent.put(LoginCacheEnum.LOGIN_SINGLE.make(accountUserName), key, LoginConstants.LOGIN_COOKIE_EXPIRE); // 禁止重复登录
         CookieUtil.addLoginCookie(response, key);
     }
 
     @Override
     public String validateLoginCookie(HttpServletRequest request, HttpServletResponse response) {
-        try {
+        /*try {
             String key = CookieUtil.getLoginCookie(request);
             LoginCookie loginCookie = nkvComponent.get(LoginCacheEnum.LOGIN_COOKIE.make(key), LoginCookie.class);
             if (loginCookie != null && loginCookie.isValid()) {
@@ -61,14 +61,14 @@ public class LoginServiceImpl implements LoginService {
             }
         } catch (Exception e) {
             //
-        }
+        }*/
         return null;
     }
 
     @Override
     public void clearLoginCookie(HttpServletRequest request, HttpServletResponse response) {
-        String key = CookieUtil.getLoginCookie(request);
+       /* String key = CookieUtil.getLoginCookie(request);
         nkvComponent.remove(LoginCacheEnum.LOGIN_COOKIE.make(key));
-        CookieUtil.delLoginCookie(response);
+        CookieUtil.delLoginCookie(response);*/
     }
 }

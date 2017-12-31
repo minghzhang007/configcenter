@@ -3,10 +3,7 @@ package com.lewis.configcenter.common.component;
 
 import com.lewis.configcenter.common.config.CacheConfig;
 import com.lewis.configcenter.common.util.ProtostuffUtils;
-import com.netease.backend.nkv.client.NkvClient;
-import com.netease.backend.nkv.client.Result;
-import com.netease.backend.nkv.client.error.NkvException;
-import com.netease.backend.nkv.client.impl.DefaultNkvClient;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -20,10 +17,10 @@ import java.util.List;
  *
  * @author hzlimaozhi
  */
-@Component
+//@Component
 public class NkvComponent {
 
-    @Resource
+   /* @Resource
     private CacheConfig cacheConfig;
 
     private static final Logger logger = LoggerFactory.getLogger(NkvComponent.class);
@@ -56,9 +53,9 @@ public class NkvComponent {
         DefaultNkvClient.shutdown();
     }
 
-    /**
+    *//**
      * 添加，若有则覆盖
-     */
+     *//*
     public void put(String key, Object obj, int expireSeconds) {
         if (obj == null) {
             throw new IllegalArgumentException("obj is null");
@@ -76,9 +73,9 @@ public class NkvComponent {
         return result;
     }
 
-    /**
+    *//**
      * 添加，已存在则返回false
-     */
+     *//*
     public boolean add(String key, Object obj, int expireSeconds) {
         if (obj == null) {
             throw new IllegalArgumentException("obj is null");
@@ -137,9 +134,9 @@ public class NkvComponent {
         return false;
     }
 
-    /**
+    *//**
      * 修改过期时间，从此时起的expireSeconds
-     */
+     *//*
     public void touch(String key, int expireSeconds) {
         Object value = get(key);
         if (value == null) {
@@ -168,6 +165,6 @@ public class NkvComponent {
         option.setExpireTime(expireSeconds);
         option.setVersion(version);
         return option;
-    }
+    }*/
 
 }
