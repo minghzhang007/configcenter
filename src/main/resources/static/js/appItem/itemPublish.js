@@ -17,7 +17,7 @@ $(document).ready(function () {
         mounted: function () {
             this.$nextTick(function () {
                 this.query();
-                this.createReleaseName();
+                //this.createReleaseName();
             })
         },
 
@@ -50,7 +50,7 @@ $(document).ready(function () {
                     dataType: "text",
                     data: {},
                     success: function (data) {
-                        _this.releaseName = data;
+                        _this.result.releaseName = data;
                     }
                 });
             },

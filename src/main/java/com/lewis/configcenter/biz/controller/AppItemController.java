@@ -143,18 +143,18 @@ public class AppItemController {
     }
 
     @GetMapping("/toPublish")
-    public String toPublish(){
+    public String toPublish() {
 
         return "appItem/itemPublish";
     }
 
     @GetMapping("/changes")
     @ResponseJson
-    public ReleaseDTO changes(@Json AppDO appDO){
+    public ReleaseDTO changes(@Json AppDO appDO) {
         ReleaseDTO dto = new ReleaseDTO();
         List<ItemDTO> changes = appItemService.changes(appDO);
         dto.setItemDtos(changes);
-        dto.setReleaseName(TimeTokenUtils.createTimeToken()+"-Release");
+        dto.setReleaseName("Release-" + TimeTokenUtils.createTimeToken());
         return dto;
     }
 
