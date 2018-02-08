@@ -80,13 +80,11 @@ listVM = new Vue({
             });
         },
 
-        update: function (app) {
+        update: function (item) {
             var url = window.location.protocol + "//" + window.location.host;
-            var app1 = JSON.parse($("#appString").text());
-            console.log(app1);
             $("#addModal").modal({
                 show: true,
-                remote: url + "/appItem/edit?" + JSON.stringify(app),
+                remote: url + "/appItem/edit?" + JSON.stringify(item),
                 backdrop: 'static'
             });
         },

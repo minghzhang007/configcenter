@@ -9,7 +9,7 @@ public interface ReleaseMapper {
 
     List<ReleaseDO> list(ReleaseQO qo);
 
-    ReleaseDO queryLastRelease();
+    ReleaseDO queryLastRelease(String appId);
 
     int insert(ReleaseDO releaseDO);
 

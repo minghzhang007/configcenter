@@ -7,15 +7,11 @@ $(document).ready(function () {
         el: "#modalForm",
         data: {
             //表单数据
-            queryForm: formData,
-            envs: envs,
-            apps: apps
+            queryForm: formData
         },
 
         methods: {
             submitData: function () {
-               // this.queryForm.envs = this.envs;
-               // this.queryForm.apps = this.apps;
                 var app = JSON.parse($("#appString").text());
                 var appInfo = {
                     "appId": app.appId,
@@ -23,7 +19,7 @@ $(document).ready(function () {
                 };
                 var id = this.queryForm.id;
                 var url = window.location.protocol + "//" + window.location.host;
-                var data = JSON.stringify($.extend(this.queryForm,appInfo));
+                var data = JSON.stringify($.extend(this.queryForm, appInfo));
                 if (id == null) {
                     url += '/appItem/add?' + data;
                 } else {

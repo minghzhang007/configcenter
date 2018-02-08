@@ -6,7 +6,6 @@ import com.lewis.configcenter.biz.dao.local.CommitMapper;
 import com.lewis.configcenter.biz.dao.local.ItemMapper;
 import com.lewis.configcenter.biz.dao.local.ReleaseMapper;
 import com.lewis.configcenter.biz.model.constants.Constants;
-import com.lewis.configcenter.biz.model.constants.PublishStatusEnum;
 import com.lewis.configcenter.biz.model.constants.StatusEnum;
 import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.CommitDO;
@@ -117,7 +116,7 @@ public class ItemServiceImpl implements ItemService {
         PageTemplate<ItemDO> pageTemplate = () -> appItemMapper.list(appItemQO);
         PageList<ItemDO> itemsByPage = pageTemplate.getItemsByPage(appItemQO);
         Collection<ItemDO> data = itemsByPage.getData();
-        List<ItemDTO> list = convert(data);
+        List<ItemDTO> list = convert(data, appItemQO.getAppId());
         return new PageList<>(list, itemsByPage.getPaginator());
     }
 
@@ -126,7 +125,7 @@ public class ItemServiceImpl implements ItemService {
         ItemQO appItemQO = new ItemQO();
         appItemQO.setAppId(appDO.getAppId());
         List<ItemDO> itemDOS = appItemMapper.list(appItemQO);
-        List<ItemDTO> list = convert(itemDOS);
+        List<ItemDTO> list = convert(itemDOS, appDO.getAppId());
         return list.stream().filter(item -> item.isNew() || item.isModified() || item.isDeleted()).collect(Collectors.toList());
     }
 
@@ -136,12 +135,12 @@ public class ItemServiceImpl implements ItemService {
         return deleteCount == 1;
     }
 
-    private List<ItemDTO> convert(Collection<ItemDO> data) {
+    private List<ItemDTO> convert(Collection<ItemDO> data, String appId) {
         if (CollectionUtils.isEmpty(data)) {
             return Lists.newArrayList();
         }
 
-        ReleaseDO releaseDO = releaseMapper.queryLastRelease();
+        ReleaseDO releaseDO = releaseMapper.queryLastRelease(appId);
         Map<String, String> releaseItems = Maps.newHashMap();
         if (releaseDO != null) {
             releaseItems = JsonUtils.toBean(releaseDO.getConfigurations(), Map.class);
@@ -191,10 +190,4 @@ public class ItemServiceImpl implements ItemService {
         return dto;
     }
 
-    @Override
-    public boolean publish(ItemQO appItemQO) {
-        appItemQO.setPublishStatus(PublishStatusEnum.PUBLISH_NO.getCode());
-        List<ItemDO> list = appItemMapper.list(appItemQO);
-        return false;
-    }
 }

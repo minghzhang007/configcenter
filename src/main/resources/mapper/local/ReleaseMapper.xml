@@ -5,15 +5,16 @@
     <select id="list" resultType="ReleaseDO">
         select * from crelease
     </select>
-    
-    <select id="queryLastRelease" resultType="ReleaseDO">
+
+    <select id="queryLastRelease" resultType="ReleaseDO" parameterType="string">
         select * from crelease
+        where AppId = #{appId}
         order by Id desc limit 1
     </select>
 
     <insert id="insert" parameterType="ReleaseDO">
-        INSERT INTO crelease(ReleaseKey,Name,Comment,AppId,Configurations,Creator,CreateTime,Modifier,UpdateTime)
-        VALUES (#{releaseKey},#{name},#{comment},#{appId},#{configurations},#{creator},#{createTime},#{modifier},#{updateTime})
+        INSERT INTO crelease(ReleaseKey,Name,Comment,AppId,Configurations,Status,Creator,CreateTime,Modifier,UpdateTime)
+        VALUES (#{releaseKey},#{name},#{comment},#{appId},#{configurations},#{status},#{creator},#{createTime},#{modifier},#{updateTime})
     </insert>
 
     <delete id="delete" parameterType="long">

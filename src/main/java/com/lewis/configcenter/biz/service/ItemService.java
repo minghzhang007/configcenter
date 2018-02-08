@@ -4,6 +4,7 @@ import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.ItemDO;
 import com.lewis.configcenter.biz.model.queryobject.ItemQO;
 import com.lewis.configcenter.biz.model.vo.ItemDTO;
+import com.lewis.configcenter.biz.model.vo.PublishVO;
 import com.lewis.configcenter.common.component.page.PageList;
 
 import java.util.List;
@@ -23,5 +24,4 @@ public interface ItemService {
 
     boolean delete(ItemDO itemDO);
 
-    boolean publish(ItemQO appItemQO);
 }

@@ -4,23 +4,21 @@ import com.lewis.configcenter.biz.dao.local.AppMapper;
 import com.lewis.configcenter.biz.dao.local.EnvironmentMapper;
 import com.lewis.configcenter.biz.model.dto.ReleaseDTO;
 import com.lewis.configcenter.biz.model.dto.SwitchConfig;
-import com.lewis.configcenter.biz.model.entity.ItemDO;
 import com.lewis.configcenter.biz.model.entity.AppDO;
 import com.lewis.configcenter.biz.model.entity.BaseEntityHelper;
-import com.lewis.configcenter.biz.model.entity.EnvironmentDO;
+import com.lewis.configcenter.biz.model.entity.ItemDO;
 import com.lewis.configcenter.biz.model.queryobject.ItemQO;
 import com.lewis.configcenter.biz.model.vo.ItemDTO;
+import com.lewis.configcenter.biz.model.vo.PublishVO;
 import com.lewis.configcenter.biz.service.ItemService;
+import com.lewis.configcenter.biz.service.PublishService;
 import com.lewis.configcenter.common.component.page.PageList;
-import com.lewis.configcenter.common.core.App;
 import com.lewis.configcenter.common.core.Json;
 import com.lewis.configcenter.common.core.ResponseJson;
 import com.lewis.configcenter.common.model.MsgConstant;
-import com.lewis.configcenter.common.model.RadioModel;
 import com.lewis.configcenter.common.model.ResultMsg;
 import com.lewis.configcenter.common.util.JsonUtils;
 import com.lewis.configcenter.common.util.TimeTokenUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,7 +26,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author zhangminghua
@@ -39,6 +36,9 @@ public class AppItemController {
 
     @Resource
     private ItemService appItemService;
+
+    @Resource
+    private PublishService publishService;
 
     @Resource
     private EnvironmentMapper environmentMapper;
@@ -65,48 +65,11 @@ public class AppItemController {
     }
 
     @GetMapping("/edit")
-    public String editor(@Json ItemDO appItemDO, @Json AppDO applicationDO, Model model) {
-        List<EnvironmentDO> environments = environmentMapper.list();
-        List<AppDO> applicationDOS = applicationMapper.list(null);
-        if (StringUtils.isNotBlank(appItemDO.getAppName())) {
-            model.addAttribute("appItem", JsonUtils.toString(appItemDO));
-
-            List<RadioModel> departs = environments.stream().map(item -> {
-                RadioModel selectModel = new RadioModel();
-                selectModel.setKey(item.getEnvName());
-                selectModel.setValue(item.getEnvDesc());
-                /*if (Objects.equals(item.getEnvName(), appItemDO.getEnvName())) {
-                    selectModel.setSelected(item.getEnvName());
-                }*/
-                return selectModel;
-            }).collect(Collectors.toList());
-            List<RadioModel> apps = applicationDOS.stream().map(item -> {
-                RadioModel radioModel = new RadioModel();
-                radioModel.setKey(item.getAppId());
-                radioModel.setValue(item.getAppName());
-                /*if (Objects.equals(item.getAppName(), appItemDO.getEnvName())) {
-                    radioModel.setSelected(item.getAppName());
-                }*/
-                return radioModel;
-            }).collect(Collectors.toList());
-            model.addAttribute("apps", JsonUtils.toString(apps));
-            model.addAttribute("envs", JsonUtils.toString(departs));
+    public String editor(@Json ItemDTO appItemDO, @Json AppDO applicationDO, Model model) {
+        if (appItemDO.getItem() != null) {
+            model.addAttribute("appItem", JsonUtils.toString(appItemDO.getItem()));
         } else {
-            List<RadioModel> envs = environments.stream().map(item -> {
-                RadioModel selectModel = new RadioModel();
-                selectModel.setKey(item.getEnvName());
-                selectModel.setValue(item.getEnvDesc());
-                return selectModel;
-            }).collect(Collectors.toList());
-            List<RadioModel> apps = applicationDOS.stream().map(item -> {
-                RadioModel radioModel = new RadioModel();
-                radioModel.setKey(item.getAppId());
-                radioModel.setValue(item.getAppName());
-                return radioModel;
-            }).collect(Collectors.toList());
-            model.addAttribute("apps", JsonUtils.toString(apps));
-            model.addAttribute("appItem", JsonUtils.toString(appItemDO));
-            model.addAttribute("envs", JsonUtils.toString(envs));
+            model.addAttribute("appItem", JsonUtils.toString(new ItemDO()));
         }
         return "appItem/itemEdit";
     }
@@ -160,8 +123,8 @@ public class AppItemController {
 
     @GetMapping("/publish")
     @ResponseJson
-    public ResultMsg publish(@Json ItemQO appItemQO) {
-        boolean result = appItemService.publish(appItemQO);
+    public ResultMsg publish(@Json PublishVO publishVO) {
+        boolean result = publishService.publish(publishVO);
         return new ResultMsg(result, MsgConstant.getPublishMsg(result));
     }
 

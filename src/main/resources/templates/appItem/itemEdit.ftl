@@ -2,7 +2,7 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
         &times;
     </button>
-    <h4 class="modal-title" id="myModalLabel" style="color: black">添加新应用</h4>
+    <h4 class="modal-title" id="myModalLabel" style="color: black">添加新配置</h4>
 </div>
 
 <form class="form-horizontal form" role="form" id="modalForm">
@@ -11,9 +11,16 @@
             <div class="form-group">
                 <label for="addKey" class="col-md-2 control-label">键</label>
                 <div class="col-md-8">
-                    <input type="text" id="addKey" name="addKey" v-model="queryForm.dictKey"
-                           placeholder="请输入键"
-                           class="form-control">
+                    <div v-if="queryForm.dictKey != null">
+                        <input type="text" id="addKey" name="addKey" v-model="queryForm.dictKey"
+                               placeholder="请输入键"
+                               class="form-control" readonly>
+                    </div>
+                    <div v-else>
+                        <input type="text" id="addKey" name="addKey" v-model="queryForm.dictKey"
+                               placeholder="请输入键"
+                               class="form-control">
+                    </div>
                 </div>
             </div>
         </div>
@@ -48,22 +55,22 @@
             </div>
         </div>
 
-        <#--<div>
-            <fieldset>
-                <legend>环境：</legend>
-            </fieldset>
-            <table class="table table-bordered table-hover table-striped">
-                <tbody>
-                <tr v-for="item in envs">
-                    <td>
-                        <input type="radio" name="env" :value="item.key" class="col-md-1"
-                               v-model="item.selected"/>
-                        <label class="col-md-offset-1">{{ item.value }}</label>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-        </div>-->
+	<#--<div>
+		<fieldset>
+			<legend>环境：</legend>
+		</fieldset>
+		<table class="table table-bordered table-hover table-striped">
+			<tbody>
+			<tr v-for="item in envs">
+				<td>
+					<input type="radio" name="env" :value="item.key" class="col-md-1"
+						   v-model="item.selected"/>
+					<label class="col-md-offset-1">{{ item.value }}</label>
+				</td>
+			</tr>
+			</tbody>
+		</table>
+	</div>-->
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -72,7 +79,5 @@
 </form>
 <script type="text/javascript">
     var formData =${appItem};
-    var apps =${apps};
-    var envs =${envs};
 </script>
 <script type="text/javascript" src="${request.contextPath}/js/appItem/appItemEdit.js"></script>

@@ -22,7 +22,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr v-for="item in result.itemDtos">
+                <tr v-for="item in this.result.itemDtos">
                     <td>{{item.item.dictKey}}</td>
                     <td>{{item.oldValue}}</td>
                     <td>{{item.newValue}}</td>

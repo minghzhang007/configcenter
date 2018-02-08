@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lewis.configcenter.biz.dao.local.ReleaseHistoryMapper">
+    <select id="queryLaststRelease" resultType="ReleaseHistoryDO">
+        select * from ReleaseHistory
+        order by Id desc limit 1
+    </select>
+
+
+    <insert id="insert" parameterType="ReleaseHistoryDO">
+        INSERT INTO ReleaseHistory(AppId,ReleaseId,PreviousReleaseId,Type,Status,Creator,CreateTime,Modifier,UpdateTime)
+        VALUES (#{appId},#{releaseId},#{previousReleaseId},#{type},#{status},#{creator},#{createTime},#{modifier},#{updateTime})
+    </insert>
+</mapper>
